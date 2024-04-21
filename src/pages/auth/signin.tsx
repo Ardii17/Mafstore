@@ -51,13 +51,13 @@ export default function Home() {
         <Button type="submit">{loading ? "Loading..." : "Masuk"}</Button>
       </form>
       <hr className="border border-slate-300 w-full" />
-      <button
+      <Button
         type="button"
         onClick={() => signIn("google", { redirect: false, callbackUrl })}
         className="w-full bg-blue-500 text-white rounded-lg py-2 flex gap-2 items-center justify-center hover:bg-blue-600"
       >
         <i className="bx bxl-google text-xl" /> Masuk dengan Google
-      </button>
+      </Button>
     </AuthLayout>
   );
 }

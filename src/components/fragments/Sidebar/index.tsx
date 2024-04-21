@@ -15,7 +15,7 @@ const SidebarAdminLayout = (props: types) => {
   const { pathname } = useRouter();
   const { lists } = props;
   return (
-    <div className="h-screen min-h-screen w-1/5 bg-blue-600 p-4 flex flex-col justify-between">
+    <div className="h-screen min-h-screen min-w-64 w-1/5 bg-blue-600 p-4 flex flex-col justify-between">
       <div>
         <h1 className="text-2xl text-white text-center">Admin Panel</h1>
         <div className="flex flex-col gap-1 mt-4">
@@ -23,7 +23,7 @@ const SidebarAdminLayout = (props: types) => {
             <Link
             href={list.link}
               key={index}
-              className={`flex items-center gap-4 cursor-pointer hover:bg-blue-800 py-2 px-3 rounded-md ${
+              className={`flex items-center gap-4 cursor-pointer transition-all hover:bg-blue-800 py-2 px-3 rounded ${
                 pathname === list.link ? "bg-blue-800" : ""
               }`}
             >
@@ -36,7 +36,7 @@ const SidebarAdminLayout = (props: types) => {
       <div>
         <Button
           type="button"
-          className="bg-blue-800 hover:bg-blue-900"
+          className="bg-blue-800 hover:bg-blue-900 w-full rounded"
           onClick={() => signOut({ callbackUrl: "/auth/signin" })}
         >
           Logout

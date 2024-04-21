@@ -1,0 +1,38 @@
+import Button from "@/components/elements/button";
+import ModalDelete from "@/components/fragments/ModalDelete";
+import userServices from "@/services/user";
+
+const ModalDeleteUser = (props: any) => {
+  const { cancelButton, setModalDeleted, id, setUsersData } = props;
+  const handleSubmit = async () => {
+    const result = await userServices.deleteUser(id);
+    console.log(result);
+    if (result.status === 200) {
+      const { data } = await userServices.getAllUsers();
+      setUsersData(data.data);
+      setModalDeleted();
+    }
+  };
+  return (
+    <div>
+      <ModalDelete>
+        <Button
+          type="button"
+          onClick={cancelButton}
+          className="bg-blue-500 hover:bg-blue-600 rounded-md px-4"
+        >
+          Batal
+        </Button>
+        <Button
+          type="button"
+          onClick={handleSubmit}
+          className="bg-red-500 hover:bg-red-600 rounded-md px-4"
+        >
+          Hapus
+        </Button>
+      </ModalDelete>
+    </div>
+  );
+};
+
+export default ModalDeleteUser;

@@ -1,3 +1,5 @@
+// MiddleWare berguna untuk membatasi seorang member menggunakan web kita, misalnya jika role member maka tidak bisa mengakses halaman admin
+
 import { getToken } from "next-auth/jwt";
 import {
   NextFetchEvent,
@@ -36,6 +38,7 @@ export default function withAuth(
         }
       }
     }
+    
     return middleware(req, next);
   };
 }

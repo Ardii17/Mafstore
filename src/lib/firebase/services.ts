@@ -1,23 +1,23 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
   getFirestore,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import app from "./init";
-import bcrypt from "bcrypt";
-import { error } from "console";
 
 const firestore = getFirestore(app);
 
 export async function retrieveData(collectionName: string) {
   const snapshot = await getDocs(collection(firestore, collectionName));
   const data = snapshot.docs.map((doc) => ({
-    id: doc.data,
+    id: doc.id,
     ...doc.data(),
   }));
   return data;
@@ -29,7 +29,11 @@ export async function retrieveDataById(collectionName: string, id: string) {
   return data;
 }
 
-export async function retrieveDataByField(collectionName: string, field: string, value: string) {
+export async function retrieveDataByField(
+  collectionName: string,
+  field: string,
+  value: string
+) {
   const q = query(
     collection(firestore, collectionName),
     where(field, "==", value)
@@ -44,13 +48,44 @@ export async function retrieveDataByField(collectionName: string, field: string,
   return data;
 }
 
-export async function addData(collectionName: string, data: any, callback: Function) {
+export async function addData(
+  collectionName: string,
+  data: any,
+  callback: Function
+) {
   await addDoc(collection(firestore, collectionName), data)
     .then(() => {
       callback(true);
     })
-    .catch((error) => {
+    .catch(() => {
       callback(false);
-      console.error(error);
+    });
+}
+
+export async function updateData(
+  collectionName: string,
+  id: string,
+  data: any,
+  callback: Function
+) {
+  await updateDoc(doc(firestore, collectionName, id), data)
+    .then(() => {
+      callback(true);
+    })
+    .catch(() => {
+      callback(false);
+    });
+}
+export async function deleteData(
+  collectionName: string,
+  id: string,
+  callback: Function
+) {
+  await deleteDoc(doc(firestore, collectionName, id))
+    .then(() => {
+      callback(true);
+    })
+    .catch(() => {
+      callback(false);
     });
 }

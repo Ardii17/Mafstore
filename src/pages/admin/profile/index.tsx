@@ -1,11 +1,9 @@
-import AdminLayout from "@/components/layouts/AdminLayout";
+import AdminProfileView from "@/components/views/admin/Profile";
 
 const AdminProfilePage = () => {
   return (
     <>
-      <AdminLayout>
-        <p>Profile</p>
-      </AdminLayout>
+      <AdminProfileView />
     </>
   );
 };

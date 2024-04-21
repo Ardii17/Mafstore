@@ -64,14 +64,14 @@ const authOption: NextAuthOptions = {
 
       if (account?.provider === "google") {
         const data = {
-          fullname: user.name,
+          username: user.name,
           email: user.email,
           type: "google",
         };
 
         await loginWithGoogle(data, (data: any) => {
           token.email = data.email;
-          token.fullname = data.fullname;
+          token.username = data.username;
           token.role = data.role;
         });
       }

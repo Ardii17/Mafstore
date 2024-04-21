@@ -1,13 +1,13 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 
-const AdminDashboardView = () => {
+const AdminProfileView = () => {
   return (
     <>
       <AdminLayout>
-        <p>Dashboard</p>
+        <p>Profile</p>
       </AdminLayout>
     </>
   );
 };
 
-export default AdminDashboardView;
+export default AdminProfileView;
