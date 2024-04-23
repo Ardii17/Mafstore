@@ -1,11 +1,14 @@
 import Button from "@/components/elements/button";
 import ModalDelete from "@/components/fragments/ModalDelete";
 import userServices from "@/services/user";
+import { useSession } from "next-auth/react";
 
 const ModalDeleteUser = (props: any) => {
   const { cancelButton, setModalDeleted, id, setUsersData } = props;
+  const session: any = useSession();
+
   const handleSubmit = async () => {
-    const result = await userServices.deleteUser(id);
+    const result = await userServices.deleteUser(id, session.data?.accessToken);
     console.log(result);
     if (result.status === 200) {
       const { data } = await userServices.getAllUsers();

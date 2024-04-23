@@ -24,7 +24,8 @@ export default function Home() {
     };
 
     const result = await authServices.registerAccount(data);
-
+    console.log(result);
+    
     if (result.status === 200) {
       formData.reset();
       setLoading(false);

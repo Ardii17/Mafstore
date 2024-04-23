@@ -8,9 +8,9 @@ export async function signUp(
     email: string;
     phone: string;
     password: string;
-    role: string;
-    created_at: Date;
-    updated_at: Date;
+    role?: string;
+    created_at?: Date;
+    updated_at?: Date;
   },
   callback: Function
 ) {

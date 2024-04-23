@@ -57,9 +57,6 @@ export async function addData(
     .then(() => {
       callback(true);
     })
-    .catch(() => {
-      callback(false);
-    });
 }
 
 export async function updateData(
