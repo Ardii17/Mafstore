@@ -45,9 +45,11 @@ export async function signIn(email: string) {
 // Fungsi untuk melakukan login dengan metode Google
 export async function loginWithGoogle(
   data: {
+    id?: string
     email: string;
     password?: string;
     role?: string;
+    image: string;
     created_at?: Date;
     updated_at?: Date;
   },
@@ -62,8 +64,11 @@ export async function loginWithGoogle(
     data.created_at = new Date();
     data.updated_at = new Date();
     data.password = "";
-    await addData("users", data, (result: boolean) => {
-      callback(result);
+    await addData("users", data, (status: boolean, res: string) => {
+      data.id = res.replace('users/', '')
+      if (status) {
+        callback(data);
+      }
     });
   }
 }

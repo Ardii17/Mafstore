@@ -23,14 +23,14 @@ export default function Home() {
       password: formData.password.value,
     };
 
-    const result = await authServices.registerAccount(data);
-    console.log(result);
-    
-    if (result.status === 200) {
-      formData.reset();
-      setLoading(false);
-      router.push("/auth/signin");
-    } else {
+    try {
+      const result = await authServices.registerAccount(data);
+      if (result.status === 200) {
+        formData.reset();
+        setLoading(false);
+        router.push("/auth/signin");
+      }
+    } catch (error) {
       setLoading(false);
       setError("Email sudah terdaftar");
     }

@@ -11,8 +11,15 @@ import {
   where,
 } from "firebase/firestore";
 import app from "./init";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 export async function retrieveData(collectionName: string) {
   const snapshot = await getDocs(collection(firestore, collectionName));
@@ -53,10 +60,9 @@ export async function addData(
   data: any,
   callback: Function
 ) {
-  await addDoc(collection(firestore, collectionName), data)
-    .then(() => {
-      callback(true);
-    })
+  await addDoc(collection(firestore, collectionName), data).then((res) => {
+    callback(true, res.path);
+  });
 }
 
 export async function updateData(
@@ -73,6 +79,7 @@ export async function updateData(
       callback(false);
     });
 }
+
 export async function deleteData(
   collectionName: string,
   id: string,
@@ -85,4 +92,29 @@ export async function deleteData(
     .catch(() => {
       callback(false);
     });
+}
+
+export async function uploadImage(id: string, file: any, callback: Function) {
+  if (file.size < 1048576) {
+    const nameFile = "profile." + file.name.split(".")[1];
+    const storageRef = ref(storage, `images/users/${id}/${nameFile}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        callback(false);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
+          callback(true, downloadURL);
+        });
+      }
+    );
+  } else {
+    callback(false);
+  }
 }

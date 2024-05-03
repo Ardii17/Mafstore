@@ -8,10 +8,11 @@ import userServices from "@/services/user";
 
 type types = {
   users: any[];
+  setToaster: any;
 };
 
 const AdminUsersView = (props: types) => {
-  const { users } = props;
+  const { users, setToaster } = props;
   const [loading, setLoading] = useState(false);
   const [usersData, setUsersData] = useState<any>([]);
   const [updatedUser, setUpdatedUser] = useState<any>([]);
@@ -74,6 +75,7 @@ const AdminUsersView = (props: types) => {
           updatedUser={updatedUser}
           setUsersData={setUsersData}
           setUpdatedUser={() => setUpdatedUser({})}
+          setToaster={setToaster}
         />
       )}
       {deleteUser && (
@@ -82,6 +84,7 @@ const AdminUsersView = (props: types) => {
           setModalDeleted={() => setDeleteUser("")}
           setUsersData={setUsersData}
           id={deleteUser}
+          setToaster={setToaster}
         />
       )}
     </>

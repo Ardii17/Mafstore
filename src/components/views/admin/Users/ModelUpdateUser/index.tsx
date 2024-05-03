@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 
 const ModalUpdateUser = (props: any) => {
-  const { setUsersData, updatedUser, setUpdatedUser } = props;
+  const { setUsersData, updatedUser, setUpdatedUser, setToaster } = props;
   const [loading, setLoading] = useState(false);
   const session: any = useSession();
 
@@ -19,11 +19,19 @@ const ModalUpdateUser = (props: any) => {
       role: form.role.value,
     };
 
-    const result = await userServices.updateUser(updatedUser.id, data, session.data?.accessToken);
+    const result = await userServices.updateUser(
+      updatedUser.id,
+      data,
+      session.data?.accessToken
+    );
 
     if (result.status === 200) {
       setUpdatedUser();
       setLoading(false);
+      setToaster({
+        variant: "success",
+        message: "Berhasil Merubah User",
+      });
       const { data } = await userServices.getAllUsers();
       setUsersData(data.data);
     } else {
@@ -33,6 +41,7 @@ const ModalUpdateUser = (props: any) => {
 
   return (
     <ModalUpdate
+      modalTitle="Update User"
       onClose={() => {
         setUpdatedUser({});
       }}

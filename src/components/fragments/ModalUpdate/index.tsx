@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 
 type types = {
   children: React.ReactNode;
+  modalTitle: string;
   onClose: any;
 };
 
 const ModalUpdate = (props: types) => {
-  const { children, onClose } = props;
+  const { children, onClose, modalTitle } = props;
   const ref: any = useRef();
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -27,7 +28,7 @@ const ModalUpdate = (props: types) => {
       style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
     >
       <div className="w-1/3 h-auto bg-white p-4 rounded" ref={ref}>
-        <p className="text-xl mb-4">Update User</p>
+        <p className="text-xl mb-4">{modalTitle}</p>
         {children}
       </div>
     </div>

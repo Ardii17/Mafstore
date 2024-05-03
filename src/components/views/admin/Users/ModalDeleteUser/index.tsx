@@ -4,16 +4,19 @@ import userServices from "@/services/user";
 import { useSession } from "next-auth/react";
 
 const ModalDeleteUser = (props: any) => {
-  const { cancelButton, setModalDeleted, id, setUsersData } = props;
+  const { cancelButton, setModalDeleted, id, setUsersData, setToaster } = props;
   const session: any = useSession();
 
   const handleSubmit = async () => {
     const result = await userServices.deleteUser(id, session.data?.accessToken);
-    console.log(result);
     if (result.status === 200) {
       const { data } = await userServices.getAllUsers();
       setUsersData(data.data);
       setModalDeleted();
+      setToaster({
+        variant: "success",
+        message: "Berhasil Menghapus User",
+      });
     }
   };
   return (

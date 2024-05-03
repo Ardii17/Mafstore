@@ -8,34 +8,29 @@ type types = {
 const listItems = [
   {
     title: "Dashboard",
-    link: "/admin",
+    link: "/member",
     icon: "bxs-dashboard",
   },
   {
-    title: "Users",
-    link: "/admin/users",
-    icon: "bxs-user-account",
-  },
-  {
-    title: "Products",
-    link: "/admin/products",
-    icon: "bxs-box",
+    title: "Order",
+    link: "/member/order",
+    icon: "bxs-cart",
   },
   {
     title: "Profile",
-    link: "/admin/profile",
+    link: "/member/profile",
     icon: "bxs-user",
   },
 ];
 
-const AdminLayout = (props: types) => {
+const MemberLayout = (props: types) => {
   const { children } = props;
   return (
     <div className="flex gap-4">
-      <SidebarLayout lists={listItems} titleSidebar="Admin Panel" />
-      {children}
+      <SidebarLayout lists={listItems} titleSidebar="Settings" />
+      <div className="my-3 w-full me-4">{children}</div>
     </div>
   );
 };
 
-export default AdminLayout;
+export default MemberLayout;

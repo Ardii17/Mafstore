@@ -9,15 +9,16 @@ type types = {
     link: string;
     icon: string;
   }>;
+  titleSidebar: string
 };
 
-const SidebarAdminLayout = (props: types) => {
+const SidebarLayout = (props: types) => {
   const { pathname } = useRouter();
-  const { lists } = props;
+  const { lists, titleSidebar } = props;
   return (
     <div className="h-screen min-h-screen min-w-64 w-1/5 bg-blue-600 p-4 flex flex-col justify-between">
       <div>
-        <h1 className="text-2xl text-white text-center">Admin Panel</h1>
+        <h1 className="text-2xl text-white text-center">{titleSidebar}</h1>
         <div className="flex flex-col gap-1 mt-4">
           {lists.map((list, index) => (
             <Link
@@ -46,4 +47,4 @@ const SidebarAdminLayout = (props: types) => {
   );
 };
 
-export default SidebarAdminLayout;
+export default SidebarLayout;
