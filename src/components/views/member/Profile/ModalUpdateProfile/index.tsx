@@ -2,14 +2,21 @@ import Button from "@/components/elements/button";
 import Input from "@/components/elements/input";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
-import { FormEvent, useState } from "react";
+import { User } from "@/types";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from "react";
 
 type types = {
-  profile: any;
-  setEditProfile: any;
+  profile: User;
+  setEditProfile: (boolean: boolean) => void;
+  setProfileData: ({}) => void;
+  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
-  setProfileData: any;
-  setToaster: any;
 };
 
 const ModalUpdateProfile = (props: types) => {
@@ -28,7 +35,6 @@ const ModalUpdateProfile = (props: types) => {
     };
 
     const result = await userServices.updateProfile(
-      profile.id,
       data,
       session.data?.accessToken
     );
@@ -55,7 +61,9 @@ const ModalUpdateProfile = (props: types) => {
           name="username"
           defaultValue={username}
           className="bg-zinc-100 border"
-          onChange={(e: any) => setUsername(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLFormElement>) =>
+            setUsername(e.target.value)
+          }
         />
         <Input
           label="Email"
@@ -63,7 +71,9 @@ const ModalUpdateProfile = (props: types) => {
           name="email"
           defaultValue={email}
           className="bg-zinc-100 border"
-          onChange={(e: any) => setEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLFormElement>) =>
+            setEmail(e.target.value)
+          }
           disable
         />
         <Input
@@ -72,7 +82,9 @@ const ModalUpdateProfile = (props: types) => {
           name="phone"
           defaultValue={phone}
           className="bg-zinc-100 border"
-          onChange={(e: any) => setPhone(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLFormElement>) =>
+            setPhone(e.target.value)
+          }
         />
         <div className="flex justify-end gap-4">
           <Button
@@ -89,7 +101,11 @@ const ModalUpdateProfile = (props: types) => {
                 ? false
                 : true
             }
-            className="bg-blue-500 hover:bg-blue-600 rounded-md w-32 place-self-end"
+            className={`${
+              username !== profile.username || phone !== profile.phone
+                ? "hover:bg-blue-600"
+                : "opacity-70 cursor-default"
+            } bg-blue-500 rounded-md w-32 place-self-end`}
           >
             Ubah Profile
           </Button>

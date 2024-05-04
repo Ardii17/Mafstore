@@ -1,16 +1,17 @@
 import Button from "@/components/elements/button";
 import Input from "@/components/elements/input";
 import MemberLayout from "@/components/layouts/MemberLayout";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ModalUpdatePassword from "./ModalUpdatePassword";
 import ModalUpdateProfile from "./ModalUpdateProfile";
 import AvatarProfile from "./Avatar";
+import { User } from "@/types";
 
 type types = {
-  profile: any;
+  profile: User;
   setProfile: any;
   session: any;
-  setToaster: any
+  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const MemberProfileView = (props: types) => {
@@ -82,14 +83,19 @@ const MemberProfileView = (props: types) => {
                 <Button
                   type="button"
                   onClick={() => setEditPassword(true)}
-                  className="bg-blue-500 hover:bg-blue-600 rounded-md w-40"
+                  disable={profileData.type === "google"}
+                  className={`${
+                    profileData.type === "google"
+                      ? "opacity-70"
+                      : "hover:bg-blue-600 "
+                  } bg-blue-500 rounded w-40`}
                 >
                   Ubah Password
                 </Button>
                 <Button
                   type="button"
                   onClick={() => setEditProfile(true)}
-                  className="bg-blue-500 hover:bg-blue-600 rounded-md w-40"
+                  className="bg-blue-500 hover:bg-blue-600 rounded w-40"
                 >
                   Edit Profile
                 </Button>

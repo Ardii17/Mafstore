@@ -1,11 +1,19 @@
 import Button from "@/components/elements/button";
 import ModalDelete from "@/components/fragments/ModalDelete";
 import userServices from "@/services/user";
-import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction } from "react";
 
-const ModalDeleteUser = (props: any) => {
-  const { cancelButton, setModalDeleted, id, setUsersData, setToaster } = props;
-  const session: any = useSession();
+type types = {
+  cancelButton: () => void
+  setModalDeleted: () => void
+  id: string,
+  setUsersData: ({}) => void
+  setToaster: Dispatch<SetStateAction<{}>>
+  session: any
+}
+
+const ModalDeleteUser = (props: types) => {
+  const { cancelButton, setModalDeleted, id, setUsersData, setToaster, session } = props;
 
   const handleSubmit = async () => {
     const result = await userServices.deleteUser(id, session.data?.accessToken);
@@ -19,6 +27,7 @@ const ModalDeleteUser = (props: any) => {
       });
     }
   };
+  
   return (
     <div>
       <ModalDelete>

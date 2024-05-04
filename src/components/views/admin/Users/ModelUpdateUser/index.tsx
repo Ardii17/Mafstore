@@ -3,13 +3,21 @@ import Input from "@/components/elements/input";
 import Select from "@/components/elements/select";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
-import { useSession } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import { User } from "@/types";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
-const ModalUpdateUser = (props: any) => {
-  const { setUsersData, updatedUser, setUpdatedUser, setToaster } = props;
+type types = {
+  setUsersData: ({}) => void;
+  updatedUser: User;
+  setUpdatedUser: () => void;
+  setToaster: Dispatch<SetStateAction<{}>>;
+  session: any;
+};
+
+const ModalUpdateUser = (props: types) => {
+  const { setUsersData, updatedUser, setUpdatedUser, setToaster, session } =
+    props;
   const [loading, setLoading] = useState(false);
-  const session: any = useSession();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -43,7 +51,7 @@ const ModalUpdateUser = (props: any) => {
     <ModalUpdate
       modalTitle="Update User"
       onClose={() => {
-        setUpdatedUser({});
+        setUpdatedUser();
       }}
     >
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

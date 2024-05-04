@@ -4,9 +4,9 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import authServices from "@/services/auth";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
-export default function Home() {
+export default function Home({ setToaster }: { setToaster: Dispatch<SetStateAction<{}>> }) {
   const [loading, setLoading] = useState(Boolean);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -27,6 +27,10 @@ export default function Home() {
       const result = await authServices.registerAccount(data);
       if (result.status === 200) {
         formData.reset();
+        setToaster({
+          variant: "success",
+          message: "Berhasil Daftar Akun",
+        });
         setLoading(false);
         router.push("/auth/signin");
       }
@@ -43,10 +47,10 @@ export default function Home() {
       link="/auth/signin"
     >
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2">
-        <Input label="Username" type="text" name="username" />
-        <Input label="Email" type="email" name="email" />
-        <Input label="Nomor Telepon" type="number" name="phone" />
-        <Input label="Password" type="password" name="password" />
+        <Input label="Username" type="text" name="username" required />
+        <Input label="Email" type="email" name="email" required />
+        <Input label="Nomor Telepon" type="number" name="phone" required />
+        <Input label="Password" type="password" name="password" required />
         <span className="text-red-500 w-full">{error ? error : ""}</span>
         <Button type="submit">{loading ? "Loading..." : "Daftar"}</Button>
       </form>

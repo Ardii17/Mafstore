@@ -24,9 +24,9 @@ const userServices = {
         Authorization: `Bearer ${token}`,
       },
     }),
-  updateProfile: (id: string, data: any, token: string) =>
+  updateProfile: (data: any, token: string) =>
     instance.put(
-      `/api/users/profile/user/${id}`,
+      `/api/users/profile`,
       { data },
       {
         headers: {

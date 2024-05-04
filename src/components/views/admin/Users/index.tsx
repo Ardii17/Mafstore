@@ -1,22 +1,22 @@
 import Button from "@/components/elements/button";
 import TD from "@/components/elements/tableData";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ModalUpdateUser from "./ModelUpdateUser";
 import ModalDeleteUser from "./ModalDeleteUser";
-import userServices from "@/services/user";
+import { useSession } from "next-auth/react";
 
 type types = {
   users: any[];
-  setToaster: any;
+  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const AdminUsersView = (props: types) => {
   const { users, setToaster } = props;
-  const [loading, setLoading] = useState(false);
   const [usersData, setUsersData] = useState<any>([]);
   const [updatedUser, setUpdatedUser] = useState<any>([]);
   const [deleteUser, setDeleteUser] = useState("");
+  const session: any = useSession()
 
   useEffect(() => {
     setUsersData(users);
@@ -76,6 +76,7 @@ const AdminUsersView = (props: types) => {
           setUsersData={setUsersData}
           setUpdatedUser={() => setUpdatedUser({})}
           setToaster={setToaster}
+          session={session}
         />
       )}
       {deleteUser && (
@@ -85,6 +86,7 @@ const AdminUsersView = (props: types) => {
           setUsersData={setUsersData}
           id={deleteUser}
           setToaster={setToaster}
+          session={session}
         />
       )}
     </>

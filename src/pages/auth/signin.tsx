@@ -3,9 +3,13 @@ import Input from "@/components/elements/input";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export default function Home() {
+export default function Home({
+  setToaster,
+}: {
+  setToaster: Dispatch<SetStateAction<{}>>;
+}) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -27,6 +31,10 @@ export default function Home() {
       if (!res?.error) {
         setLoading(false);
         formData.reset();
+        setToaster({
+          variant: "success",
+          message: "Berhasil Masuk Akun",
+        });
         router.push(callbackUrl);
       } else {
         setLoading(false);
@@ -45,8 +53,8 @@ export default function Home() {
       link="/auth/signup"
     >
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3">
-        <Input label="Email" type="email" name="email" />
-        <Input label="Password" type="password" name="password" />
+        <Input label="Email" type="email" name="email" required />
+        <Input label="Password" type="password" name="password" required />
         <span className="text-red-500 w-full">{error ? error : ""}</span>
         <Button type="submit">{loading ? "Loading..." : "Masuk"}</Button>
       </form>

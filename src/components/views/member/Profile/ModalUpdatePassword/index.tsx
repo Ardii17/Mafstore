@@ -2,15 +2,16 @@ import Button from "@/components/elements/button";
 import Input from "@/components/elements/input";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
-import { FormEvent } from "react";
+import { User } from "@/types";
+import { Dispatch, FormEvent, SetStateAction } from "react";
 
 type types = {
-  profile: any;
-  session: any;
-  setEditPassword: any;
-  setErrorPassword: any;
+  profile: User;
+  setEditPassword: (boolean: boolean) => void;
+  setErrorPassword: (string: string) => void;
   errorPassword: string;
-  setToaster: any;
+  setToaster: Dispatch<SetStateAction<{}>>;
+  session: any;
 };
 
 const ModalUpdatePassword = (props: types) => {
@@ -22,6 +23,7 @@ const ModalUpdatePassword = (props: types) => {
     errorPassword,
     setToaster,
   } = props;
+
   const handleEditPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form: any = e.target as HTMLFormElement;
@@ -33,7 +35,6 @@ const ModalUpdatePassword = (props: types) => {
     if (form.newPassword.value === form.newConfirmPassword.value) {
       try {
         const result = await userServices.updateProfile(
-          profile.id,
           data,
           session.data?.accessToken
         );
@@ -65,25 +66,28 @@ const ModalUpdatePassword = (props: types) => {
           type="password"
           name="oldPassword"
           className="bg-zinc-100 border"
+          required
         />
         <Input
           label="Password Baru"
           type="password"
           name="newPassword"
           className="bg-zinc-100 border"
+          required
         />
         <Input
           label="Konfirmasi Password Baru"
           type="password"
           name="newConfirmPassword"
           className="bg-zinc-100 border"
+          required
         />
         <p className="text-sm text-red-500">
           {errorPassword ? errorPassword : ""}
         </p>
         <Button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 rounded-md w-32 place-self-end"
+          className="bg-blue-500 hover:bg-blue-600 rounded w-32 place-self-end"
         >
           Ubah Password
         </Button>

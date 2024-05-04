@@ -45,7 +45,6 @@ export default async function handler(
     }
   } else if (req.method === "PUT") {
     const { data } = req.body;
-    const { user }: any = req.query;
     const accessToken = req.headers.authorization?.split(" ")[1] || "";
     jwt.verify(
       accessToken,
@@ -69,7 +68,7 @@ export default async function handler(
             data.password = await hash(data.password, 10);
           }
 
-          await updateData("users", user[1], data, (result: boolean) => {
+          await updateData("users", decoded.id, data, (result: boolean) => {
             if (result) {
               res
                 .status(200)

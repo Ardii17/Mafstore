@@ -1,10 +1,10 @@
 import MemberProfileView from "@/components/views/member/Profile";
 import userServices from "@/services/user";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type types = {
-  setToaster: any;
+  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const MemberProfilePage = (props: types) => {
