@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type types = {
+type propTypes = {
   variant?: string;
   message: string;
   onClose: any;
@@ -30,7 +30,7 @@ const variantToaster: any = {
   },
 };
 
-const Toaster = (props: types) => {
+const Toaster = (props: propTypes) => {
   const { variant = "success", message, onClose } = props;
   const [lengthToaster, setLengthToaster] = useState(100);
   const timerRef = useRef<any>(null);
@@ -52,7 +52,7 @@ const Toaster = (props: types) => {
   return (
     <div className="fixed right-12 bottom-12 shadow rounded overflow-hidden">
       <div
-        className="flex gap-4 items-center px-5 py-3 z-10 w-72"
+        className="flex gap-4 items-center px-5 py-3 z-10 min-w-72"
         style={{ backgroundColor: `${variantToaster[variant].bg}` }}
       >
         <i
@@ -63,7 +63,7 @@ const Toaster = (props: types) => {
         />
         <div>
           <p>{`${variantToaster[variant].text}`}</p>
-          <p>{message}</p>
+          <p className="whitespace-normal">{message}</p>
         </div>
       </div>
       <i

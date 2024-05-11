@@ -3,7 +3,7 @@ import ModalDelete from "@/components/fragments/ModalDelete";
 import userServices from "@/services/user";
 import { Dispatch, SetStateAction } from "react";
 
-type types = {
+type propTypes = {
   cancelButton: () => void
   setModalDeleted: () => void
   id: string,
@@ -12,7 +12,7 @@ type types = {
   session: any
 }
 
-const ModalDeleteUser = (props: types) => {
+const ModalDeleteUser = (props: propTypes) => {
   const { cancelButton, setModalDeleted, id, setUsersData, setToaster, session } = props;
 
   const handleSubmit = async () => {

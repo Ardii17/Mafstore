@@ -1,7 +1,7 @@
 import SidebarLayout from "@/components/fragments/Sidebar";
 import React from "react";
 
-type types = {
+type propTypes = {
   children: React.ReactNode;
 };
 
@@ -28,12 +28,12 @@ const listItems = [
   },
 ];
 
-const AdminLayout = (props: types) => {
+const AdminLayout = (props: propTypes) => {
   const { children } = props;
   return (
-    <div className="flex gap-4">
+    <div className="flex">
       <SidebarLayout lists={listItems} titleSidebar="Admin Panel" />
-      {children}
+       {children}
     </div>
   );
 };

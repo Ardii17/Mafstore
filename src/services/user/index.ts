@@ -2,6 +2,7 @@ import instance from "@/lib/axios/instance";
 
 const userServices = {
   getAllUsers: () => instance.get("/api/user"),
+
   updateUser: (id: string, data: any, token: string) =>
     instance.put(
       `/api/user/${id}`,
@@ -27,6 +28,38 @@ const userServices = {
   updateProfile: (data: any, token: string) =>
     instance.put(
       `/api/users/profile`,
+      { data },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ),
+  getCarts: (token: string) =>
+    instance.get("/api/users/carts", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  updateCarts: (data: any, token: string) =>
+    instance.put(
+      `/api/users/carts`,
+      { data },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ),
+  getFavorite: (token: string) =>
+    instance.get("/api/users/favorite", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  updateFavorite: (data: any, token: string) =>
+    instance.put(
+      "/api/users/favorite",
       { data },
       {
         headers: {

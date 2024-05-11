@@ -1,6 +1,6 @@
 import Toaster from "@/components/elements/Toaster";
 import { ThemeProvider } from "@/components/elements/contextAPI";
-import { AppShell } from "@/components/layouts/AppShell";
+import AppShell from "@/components/layouts/AppShell";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";

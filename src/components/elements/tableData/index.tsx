@@ -1,13 +1,23 @@
 import { child } from "firebase/database";
 
-type types = {
+type propTypes = {
   children: React.ReactNode;
   className?: string;
+  rowspan?: number;
+  colspan?: number;
 };
 
-const TD = (props: types) => {
-  const { children, className } = props;
-  return <td className={`text-center py-1 ${className}`}>{children}</td>;
+const TD = (props: propTypes) => {
+  const { children, className, rowspan, colspan } = props;
+  return (
+    <td
+      className={`text-center py-1 ${className}`}
+      rowSpan={rowspan}
+      colSpan={colspan}
+    >
+      {children}
+    </td>
+  );
 };
 
 export default TD;

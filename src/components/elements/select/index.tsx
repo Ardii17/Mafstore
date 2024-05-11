@@ -3,8 +3,8 @@ type option = {
   value: string;
 };
 
-type types = {
-  label: string;
+type propTypes = {
+  label?: string;
   name: string;
   className?: string;
   defaultValue?: string;
@@ -12,7 +12,7 @@ type types = {
   options: option[];
 };
 
-const Select = (props: types) => {
+const Select = (props: propTypes) => {
   const { label, name, className, defaultValue, disable, options } = props;
   return (
     <div className="flex flex-col w-full gap-2">

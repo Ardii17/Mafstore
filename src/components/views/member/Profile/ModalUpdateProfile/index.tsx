@@ -11,27 +11,27 @@ import {
   useState,
 } from "react";
 
-type types = {
+type propTypes = {
   profile: User;
-  setEditProfile: (boolean: boolean) => void;
-  setProfileData: ({}) => void;
+  setEditProfile: Dispatch<SetStateAction<boolean>>;
+  setProfileData: Dispatch<SetStateAction<{}>>;
   setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
-const ModalUpdateProfile = (props: types) => {
+const ModalUpdateProfile = (props: propTypes) => {
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
   const { profile, setEditProfile, session, setProfileData, setToaster } =
     props;
-  const [username, setUsername] = useState(profile.username);
-  const [email, setEmail] = useState(profile.email);
-  const [phone, setPhone] = useState(profile.phone);
 
   const handleEditProfile = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form: any = e.target as HTMLFormElement;
     const data = {
-      username,
-      email,
-      phone,
+      username: form.username.value,
+      email: form.email.value,
+      phone: form.phone.value,
     };
 
     const result = await userServices.updateProfile(
@@ -59,32 +59,25 @@ const ModalUpdateProfile = (props: types) => {
           label="Username"
           type="text"
           name="username"
-          defaultValue={username}
+          defaultValue={profile.username}
           className="bg-zinc-100 border"
-          onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setUsername(e.target.value)
-          }
+          onChange={(e: any) => setUsername(e.target.value)}
         />
         <Input
           label="Email"
           type="email"
           name="email"
-          defaultValue={email}
+          defaultValue={profile.email}
           className="bg-zinc-100 border"
-          onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setEmail(e.target.value)
-          }
           disable
         />
         <Input
           label="Telephone"
           type="number"
           name="phone"
-          defaultValue={phone}
+          defaultValue={profile.phone}
           className="bg-zinc-100 border"
-          onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setPhone(e.target.value)
-          }
+          onChange={(e: any) => setPhone(e.target.value)}
         />
         <div className="flex justify-end gap-4">
           <Button

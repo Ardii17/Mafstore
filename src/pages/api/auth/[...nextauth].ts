@@ -62,7 +62,7 @@ const authOption: NextAuthOptions = {
         token.phone = user.phone;
         token.role = user.role;
         token.id = user.id;
-        token.image = user.image
+        token.image = user.image;
       }
 
       if (account?.provider === "google") {
@@ -103,7 +103,7 @@ const authOption: NextAuthOptions = {
       }
 
       if ("image" in token) {
-        session.user.image = token.image
+        session.user.image = token.image;
       }
 
       if ("id" in token) {

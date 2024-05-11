@@ -3,11 +3,11 @@ import userServices from "@/services/user";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-type types = {
+type propTypes = {
   setToaster: Dispatch<SetStateAction<{}>>;
 };
 
-const MemberProfilePage = (props: types) => {
+const MemberProfilePage = (props: propTypes) => {
   const { setToaster } = props;
   const [profile, setProfile] = useState({});
   const session: any = useSession();

@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 
-type types = {
+type propTypes = {
   children: React.ReactNode;
   modalTitle: string;
   onClose: any;
+  className?: string;
 };
 
-const ModalUpdate = (props: types) => {
-  const { children, onClose, modalTitle } = props;
+const ModalUpdate = (props: propTypes) => {
+  const { children, onClose, modalTitle, className = "w-1/3" } = props;
   const ref: any = useRef();
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -27,7 +28,12 @@ const ModalUpdate = (props: types) => {
       className="flex w-screen h-screen z-50 fixed items-center justify-center top-0"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
     >
-      <div className="w-1/3 h-auto bg-white p-4 rounded" ref={ref}>
+      <div
+        className={`bg-white p-4 rounded overflow-y-auto ${className}`}
+        id="modalUpdate"
+        ref={ref}
+        style={{ maxHeight: "35rem" }}
+      >
         <p className="text-xl mb-4">{modalTitle}</p>
         {children}
       </div>

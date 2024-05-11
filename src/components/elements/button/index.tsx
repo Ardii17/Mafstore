@@ -1,4 +1,4 @@
-type types = {
+type propTypes = {
   type: "submit" | "button" | "reset" | undefined;
   onClick?: () => void;
   className?: string;
@@ -6,11 +6,11 @@ type types = {
   disable?: boolean;
 };
 
-export default function Button(props: types) {
+export default function Button(props: propTypes) {
   const {
     type,
     onClick,
-    className = "bg-blue-500 hover:bg-blue-600 rounded-lg w-full",
+    className = "bg-blue-700 hover:bg-blue-800 rounded-lg w-full",
     children,
     disable,
   } = props;

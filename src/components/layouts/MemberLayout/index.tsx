@@ -1,7 +1,7 @@
 import SidebarLayout from "@/components/fragments/Sidebar";
 import React from "react";
 
-type types = {
+type propTypes = {
   children: React.ReactNode;
 };
 
@@ -23,7 +23,7 @@ const listItems = [
   },
 ];
 
-const MemberLayout = (props: types) => {
+const MemberLayout = (props: propTypes) => {
   const { children } = props;
   return (
     <div className="flex gap-4">

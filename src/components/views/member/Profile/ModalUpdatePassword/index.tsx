@@ -5,7 +5,7 @@ import userServices from "@/services/user";
 import { User } from "@/types";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
-type types = {
+type propTypes = {
   profile: User;
   setEditPassword: (boolean: boolean) => void;
   setErrorPassword: (string: string) => void;
@@ -14,7 +14,7 @@ type types = {
   session: any;
 };
 
-const ModalUpdatePassword = (props: types) => {
+const ModalUpdatePassword = (props: propTypes) => {
   const {
     profile,
     session,

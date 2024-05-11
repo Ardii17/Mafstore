@@ -51,14 +51,14 @@ export default function Home({ setToaster }: { setToaster: Dispatch<SetStateActi
         <Input label="Email" type="email" name="email" required />
         <Input label="Nomor Telepon" type="number" name="phone" required />
         <Input label="Password" type="password" name="password" required />
-        <span className="text-red-500 w-full">{error ? error : ""}</span>
+        <span className="text-red-700 w-full">{error ? error : ""}</span>
         <Button type="submit">{loading ? "Loading..." : "Daftar"}</Button>
       </form>
       <hr className="border border-slate-300 w-full" />
       <button
         type="button"
         onClick={() => signIn("google", { redirect: false, callbackUrl })}
-        className="w-full bg-blue-500 text-white rounded-lg py-2 flex gap-2 items-center justify-center hover:bg-blue-600"
+        className="w-full bg-blue-700 text-white rounded-lg py-2 flex gap-2 items-center justify-center hover:bg-blue-800"
       >
         <i className="bx bxl-google text-xl"></i> Masuk dengan Google
       </button>

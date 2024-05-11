@@ -6,7 +6,7 @@ import userServices from "@/services/user";
 import { User } from "@/types";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
-type types = {
+type propTypes = {
   setUsersData: ({}) => void;
   updatedUser: User;
   setUpdatedUser: () => void;
@@ -14,7 +14,7 @@ type types = {
   session: any;
 };
 
-const ModalUpdateUser = (props: types) => {
+const ModalUpdateUser = (props: propTypes) => {
   const { setUsersData, updatedUser, setUpdatedUser, setToaster, session } =
     props;
   const [loading, setLoading] = useState(false);

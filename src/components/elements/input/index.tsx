@@ -1,5 +1,5 @@
-type types = {
-  label: string;
+type propTypes = {
+  label?: string;
   type: string;
   name: string;
   placeholder?: string;
@@ -10,7 +10,7 @@ type types = {
   required?: boolean;
 };
 
-export default function Input(props: types) {
+export default function Input(props: propTypes) {
   const {
     label,
     type,
@@ -30,8 +30,8 @@ export default function Input(props: types) {
         id={name}
         name={name}
         placeholder={placeholder}
-        className={`py-2 px-3 rounded-lg ${className}`}
-        value={defaultValue}
+        className={`py-2 px-3 ${className} rounded-lg`}
+        defaultValue={defaultValue}
         disabled={disable}
         onChange={onChange}
         required={required}

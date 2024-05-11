@@ -5,7 +5,7 @@ import { User } from "@/types";
 import Image from "next/image";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
-type types = {
+type propTypes = {
   profileData: User;
   setProfile: ({}) => void;
   profile: User;
@@ -13,7 +13,7 @@ type types = {
   session: any;
 };
 
-const AvatarProfile = (props: types) => {
+const AvatarProfile = (props: propTypes) => {
   const { profileData, session, setProfile, profile, setToaster } = props;
   const [changeImage, setChangeImage] = useState<File | undefined>();
   const [loading, setLoading] = useState(false);
@@ -21,10 +21,13 @@ const AvatarProfile = (props: types) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const file = form.picture?.files[0];
+    const nameFile = "profile." + file.name.split(".")[1];
     setLoading(true);
     if (file) {
       uploadImage(
         profileData.id,
+        nameFile,
+        "users",
         file,
         async (status: boolean, pictureUrl: string) => {
           const data = {

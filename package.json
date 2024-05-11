@@ -16,7 +16,10 @@
     "next": "14.2.1",
     "next-auth": "^4.24.7",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-intersection-observer": "^9.10.2",
+    "sass": "^1.77.0",
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

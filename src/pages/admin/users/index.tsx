@@ -2,11 +2,11 @@ import AdminUsersView from "@/components/views/admin/Users";
 import userServices from "@/services/user";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-type types = {
+type propTypes = {
   setToaster: Dispatch<SetStateAction<{}>>;
 };
 
-const AdminUsersPage = (props: types) => {
+const AdminUsersPage = (props: propTypes) => {
   const { setToaster } = props;
   const [users, setUsers] = useState([]);
   useEffect(() => {

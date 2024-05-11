@@ -48,7 +48,7 @@ export default function Home({
 
   return (
     <AuthLayout
-      title="Masuk Akun"
+      title="Masuk Akun Mafstore"
       linkText="Belum punya akun? Daftar "
       link="/auth/signup"
     >
@@ -62,7 +62,7 @@ export default function Home({
       <Button
         type="button"
         onClick={() => signIn("google", { redirect: false, callbackUrl })}
-        className="w-full bg-blue-500 text-white rounded-lg py-2 flex gap-2 items-center justify-center hover:bg-blue-600"
+        className="w-full bg-blue-700 text-white rounded-lg py-2 flex gap-2 items-center justify-center hover:bg-blue-800"
       >
         <i className="bx bxl-google text-xl" /> Masuk dengan Google
       </Button>

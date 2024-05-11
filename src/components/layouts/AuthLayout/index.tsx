@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-type types = {
+type propTypes = {
   title: string;
   link: string;
   linkText: string;
   children: React.ReactNode;
 };
 
-const AuthLayout = (props: types) => {
+const AuthLayout = (props: propTypes) => {
   const { title, link, linkText, children } = props;
   return (
     <div className="w-full h-screen px-20 flex items-center justify-center gap-20 bg-slate-200">

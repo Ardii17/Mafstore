@@ -7,14 +7,14 @@ import ModalUpdateProfile from "./ModalUpdateProfile";
 import AvatarProfile from "./Avatar";
 import { User } from "@/types";
 
-type types = {
+type propTypes = {
   profile: User;
-  setProfile: any;
+  setProfile: Dispatch<SetStateAction<User>>;
   session: any;
   setToaster: Dispatch<SetStateAction<{}>>;
 };
 
-const MemberProfileView = (props: types) => {
+const MemberProfileView = (props: propTypes) => {
   const { profile, setProfile, session, setToaster } = props;
   const [profileData, setProfileData] = useState({ ...profile });
   const [editProfile, setEditProfile] = useState(false);
