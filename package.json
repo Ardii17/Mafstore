@@ -9,8 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/carousel": "^7.9.1",
+    "@mantine/core": "^7.9.1",
+    "@mantine/form": "^7.9.1",
+    "@mantine/hooks": "^7.9.1",
+    "@tabler/icons-react": "^3.3.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
+    "embla-carousel-react": "^7.1.0",
     "firebase": "^10.11.0",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.1",

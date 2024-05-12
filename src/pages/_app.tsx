@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { MantineProvider } from "@mantine/core";
 
 export default function App({
   Component,
@@ -36,11 +37,13 @@ export default function App({
         <link rel="icon" href="./../Icons/icon-web.png" type="image/x-icon" />
       </Head>
       <SessionProvider session={session}>
-        <ThemeProvider>
-          <AppShell>
-            <Component {...pageProps} setToaster={setToaster} />
-          </AppShell>
-        </ThemeProvider>
+        <MantineProvider>
+          <ThemeProvider>
+            <AppShell>
+              <Component {...pageProps} setToaster={setToaster} />
+            </AppShell>
+          </ThemeProvider>
+        </MantineProvider>
       </SessionProvider>
       {Object.keys(toaster).length > 0 && (
         <Toaster

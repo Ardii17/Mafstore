@@ -11,8 +11,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 type propTypes = {
   product: Product | any;
   carts: any;
-  favorite: [];
   productId: string;
+  favorite: [];
   setFavorite: Dispatch<SetStateAction<[]>>;
   setToaster: Dispatch<SetStateAction<{}>>;
 };
