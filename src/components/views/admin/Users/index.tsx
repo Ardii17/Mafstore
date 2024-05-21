@@ -1,45 +1,55 @@
 import Button from "@/components/elements/button";
 import TD from "@/components/elements/tableData";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModalUpdateUser from "./ModelUpdateUser";
 import ModalDeleteUser from "./ModalDeleteUser";
 import { useSession } from "next-auth/react";
 import { User } from "@/types";
+import { ThemeContext } from "@/components/elements/contextAPI";
+import { useRouter } from "next/router";
 
 type propTypes = {
   users: User[];
-  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const AdminUsersView = (props: propTypes) => {
-  const { users, setToaster } = props;
+  const theme = useContext(ThemeContext);
+  const { users } = props;
+  const { push } = useRouter();
   const [usersData, setUsersData] = useState<any>([]);
   const [updatedUser, setUpdatedUser] = useState<any>([]);
   const [deleteUser, setDeleteUser] = useState("");
   const [searched, setSearched] = useState("");
-  const session: any = useSession()
+  const session: any = useSession();
 
   useEffect(() => {
     setUsersData(users);
   }, [users]);
 
-    useEffect(() => {
-      if (searched) {
-        const newProducts = usersData.filter((user: any) =>
-          user.username.toLowerCase().includes(searched.toLowerCase())
-        );
-        setUsersData(newProducts);
-      } else {
-        setUsersData(users);
-      }
-    }, [searched]);
+  useEffect(() => {
+    if (searched) {
+      const newProducts = usersData.filter((user: any) =>
+        user.username.toLowerCase().includes(searched.toLowerCase())
+      );
+      setUsersData(newProducts);
+    } else {
+      setUsersData(users);
+    }
+  }, [searched]);
 
   return (
     <>
       <AdminLayout>
         <div className="p-4 w-full">
-          <p className="text-xl mb-2">Users Management</p>
+          <div className="flex gap-2 mb-2 items-center">
+            <button onClick={() => push("/")}>
+              <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
+            </button>
+            <p className="text-lg bg-blue-700 py-[6px] px-4 rounded text-white">
+              Products Management
+            </p>
+          </div>
           <div className="relative mb-4 float-end">
             <i className="bx bx-search absolute left-4 top-1/2 -translate-y-1/2 text-xl" />
             <input
@@ -98,7 +108,6 @@ const AdminUsersView = (props: propTypes) => {
           updatedUser={updatedUser}
           setUsersData={setUsersData}
           setUpdatedUser={() => setUpdatedUser({})}
-          setToaster={setToaster}
           session={session}
         />
       )}
@@ -108,7 +117,6 @@ const AdminUsersView = (props: propTypes) => {
           setModalDeleted={() => setDeleteUser("")}
           setUsersData={setUsersData}
           id={deleteUser}
-          setToaster={setToaster}
           session={session}
         />
       )}

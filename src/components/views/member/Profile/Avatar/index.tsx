@@ -1,20 +1,21 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import { uploadImage } from "@/lib/firebase/services";
 import userServices from "@/services/user";
 import { User } from "@/types";
 import Image from "next/image";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 
 type propTypes = {
   profileData: User;
   setProfile: ({}) => void;
   profile: User;
-  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
 const AvatarProfile = (props: propTypes) => {
-  const { profileData, session, setProfile, profile, setToaster } = props;
+  const theme = useContext(ThemeContext);
+  const { profileData, session, setProfile, profile } = props;
   const [changeImage, setChangeImage] = useState<File | undefined>();
   const [loading, setLoading] = useState(false);
   const handleSubmitPicture = (e: FormEvent<HTMLFormElement>) => {
@@ -43,13 +44,13 @@ const AvatarProfile = (props: propTypes) => {
             if (result.status === 200) {
               setProfile({ ...profile, image: pictureUrl });
               setLoading(false);
-              setToaster({
+              theme?.setToaster({
                 variant: "success",
                 message: "Berhasil Merubah Avatar",
               });
             } else {
               setLoading(true);
-              setToaster({
+              theme?.setToaster({
                 variant: "failed",
                 message: "Gagal Merubah Avatar",
               });

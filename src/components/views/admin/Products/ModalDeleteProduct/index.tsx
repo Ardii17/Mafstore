@@ -1,26 +1,25 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import ModalDelete from "@/components/fragments/ModalDelete";
 import productsServices from "@/services/products";
-import userServices from "@/services/user";
 import { Product } from "@/types";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 
 type propTypes = {
   cancelButton: () => void;
   setModalDelete: Dispatch<SetStateAction<boolean>>;
   id: string;
   setProductsData: Dispatch<SetStateAction<Product[]>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
 const ModalDeleteProduct = (props: propTypes) => {
+  const theme = useContext(ThemeContext);
   const {
     cancelButton,
     setModalDelete,
     id,
     setProductsData,
-    setToaster,
     session,
   } = props;
 
@@ -34,7 +33,7 @@ const ModalDeleteProduct = (props: propTypes) => {
         const { data } = await productsServices.getAllProducts();
         setProductsData(data.data);
         setModalDelete(false);
-        setToaster({
+        theme?.setToaster({
           variant: "success",
           message: "Berhasil Menghapus Product",
         });

@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mantine/carousel": "^7.9.1",
-    "@mantine/core": "^7.9.1",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mantine/carousel": "^7.9.2",
+    "@mantine/core": "^7.9.2",
     "@mantine/form": "^7.9.1",
-    "@mantine/hooks": "^7.9.1",
+    "@mantine/hooks": "^7.9.2",
+    "@mui/material": "^5.15.17",
     "@tabler/icons-react": "^3.3.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
@@ -25,7 +28,10 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.10.2",
     "sass": "^1.77.0",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5",
+    "swiper": "^11.1.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -33,7 +39,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
+    "semantic-ui-ember": "github:Semantic-Org/Semantic-UI-Ember",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

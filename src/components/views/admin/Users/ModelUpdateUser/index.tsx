@@ -1,21 +1,22 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import Select from "@/components/elements/select";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
 import { User } from "@/types";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 
 type propTypes = {
   setUsersData: ({}) => void;
   updatedUser: User;
   setUpdatedUser: () => void;
-  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
 const ModalUpdateUser = (props: propTypes) => {
-  const { setUsersData, updatedUser, setUpdatedUser, setToaster, session } =
+  const theme = useContext(ThemeContext);
+  const { setUsersData, updatedUser, setUpdatedUser, session } =
     props;
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +37,7 @@ const ModalUpdateUser = (props: propTypes) => {
     if (result.status === 200) {
       setUpdatedUser();
       setLoading(false);
-      setToaster({
+      theme?.setToaster({
         variant: "success",
         message: "Berhasil Merubah User",
       });

@@ -1,10 +1,22 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
+import { useRouter } from "next/router";
 
 const AdminProfileView = () => {
+  const { push } = useRouter();
+
   return (
     <>
       <AdminLayout>
-        <p>Profile</p>
+        <div className="p-4">
+          <div className="flex gap-2 mb-2 items-center">
+            <button onClick={() => push("/")}>
+              <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
+            </button>
+            <p className="text-lg bg-blue-700 py-[6px] px-4 rounded text-white">
+              Profile
+            </p>
+          </div>
+        </div>
       </AdminLayout>
     </>
   );

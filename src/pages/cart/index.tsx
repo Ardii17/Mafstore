@@ -42,7 +42,6 @@ const CartPage = (props: proptypes) => {
         setCarts={setCarts}
         favorite={favorite}
         setFavorite={setFavorite}
-        setToaster={setToaster}
       />
     </div>
   );

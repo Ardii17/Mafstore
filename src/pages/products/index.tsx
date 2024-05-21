@@ -1,23 +1,41 @@
 import ProductsViews from "@/components/views/products";
 import productsServices from "@/services/products";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Product } from "@/types";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-type propTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
-};
-
-const ProductPage = (props: propTypes) => {
-  const { setToaster } = props;
+const ProductPage = () => {
+  const { q }: any = useRouter().query;
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const getAllProducts = async () => {
       const { data } = await productsServices.getAllProducts();
-      setProducts(data.data);
-    };
-    getAllProducts();
-  }, []);
+      if (q) {
+        let newProductsDataByName = data.data.filter((product: Product) =>
+          product.name.toLowerCase().includes(q.toLowerCase())
+        );
 
-  return <ProductsViews products={products} />;
+        let newProductsDataByCategory = data.data.filter((product: Product) =>
+          product.category.toLowerCase().includes(q.toLowerCase())
+        );
+
+        if (newProductsDataByCategory.length > 0) {
+          newProductsDataByCategory.map((product: Product) =>
+            newProductsDataByName.push(product)
+          );
+        }
+
+        setProducts(newProductsDataByName);
+      } else {
+        setProducts(data.data);
+      }
+    };
+
+    getAllProducts();
+  }, [q]);
+
+  return <ProductsViews products={products} query={q} />;
 };
 
 export default ProductPage;

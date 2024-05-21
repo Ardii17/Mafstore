@@ -14,9 +14,11 @@ import app from "./init";
 import {
   getDownloadURL,
   getStorage,
+  listAll,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { StaticRequire } from "next/dist/shared/lib/get-img-props";
 
 const firestore = getFirestore(app);
 const storage = getStorage(app);
@@ -122,5 +124,23 @@ export async function uploadImage(
     );
   } else {
     callback(false);
+  }
+}
+
+export async function getPictureFromStorage(folderName: string) {
+  const storageRef = ref(storage, `/images/${folderName}`);
+  try {
+    const res = await listAll(storageRef);
+    const urls = await Promise.all(
+      res.items.map((item: any) =>
+        getDownloadURL(item).then((downloadUrl: string) => ({
+          link: downloadUrl,
+          name: item.name,
+        }))
+      )
+    );
+    return urls;
+  } catch (error) {
+    console.log(error);
   }
 }

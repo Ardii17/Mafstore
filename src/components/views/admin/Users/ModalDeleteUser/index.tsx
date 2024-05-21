@@ -1,19 +1,20 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import ModalDelete from "@/components/fragments/ModalDelete";
 import userServices from "@/services/user";
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
 
 type propTypes = {
   cancelButton: () => void
   setModalDeleted: () => void
   id: string,
   setUsersData: ({}) => void
-  setToaster: Dispatch<SetStateAction<{}>>
   session: any
 }
 
 const ModalDeleteUser = (props: propTypes) => {
-  const { cancelButton, setModalDeleted, id, setUsersData, setToaster, session } = props;
+  const theme = useContext(ThemeContext);
+  const { cancelButton, setModalDeleted, id, setUsersData, session } = props;
 
   const handleSubmit = async () => {
     const result = await userServices.deleteUser(id, session.data?.accessToken);
@@ -21,7 +22,7 @@ const ModalDeleteUser = (props: propTypes) => {
       const { data } = await userServices.getAllUsers();
       setUsersData(data.data);
       setModalDeleted();
-      setToaster({
+      theme?.setToaster({
         variant: "success",
         message: "Berhasil Menghapus User",
       });

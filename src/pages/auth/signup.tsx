@@ -1,12 +1,14 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import authServices from "@/services/auth";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent,useContext,useState } from "react";
 
-export default function Home({ setToaster }: { setToaster: Dispatch<SetStateAction<{}>> }) {
+export default function Home() {
+  const theme = useContext(ThemeContext)
   const [loading, setLoading] = useState(Boolean);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -27,7 +29,7 @@ export default function Home({ setToaster }: { setToaster: Dispatch<SetStateActi
       const result = await authServices.registerAccount(data);
       if (result.status === 200) {
         formData.reset();
-        setToaster({
+        theme?.setToaster({
           variant: "success",
           message: "Berhasil Daftar Akun",
         });

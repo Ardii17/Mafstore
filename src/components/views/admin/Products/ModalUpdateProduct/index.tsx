@@ -1,4 +1,5 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import Select from "@/components/elements/select";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
@@ -12,19 +13,19 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 
 type propTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
   setProducts: Dispatch<SetStateAction<Product[]>>;
   updatedProduct: Product | any;
   setModalUpdateProduct: Dispatch<SetStateAction<boolean>>;
 };
 
 const ModalUpdateProduct = (props: propTypes) => {
-  const { setToaster, setModalUpdateProduct, updatedProduct, setProducts } =
-    props;
+  const theme = useContext(ThemeContext);
+  const { setModalUpdateProduct, updatedProduct, setProducts } = props;
   const session: any = useSession();
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [stock, setStock] = useState(updatedProduct.stock);
@@ -60,14 +61,15 @@ const ModalUpdateProduct = (props: propTypes) => {
     );
 
     if (result.status === 200) {
-      setToaster({
+      theme?.setToaster({
         variant: "success",
         message: "Sukses Mengupdate Product",
       });
+      setModalUpdateProduct(false);
       const { data } = await productsServices.getAllProducts();
       setProducts(data.data);
     } else {
-      setToaster({
+      theme?.setToaster({
         variant: "failed",
         message: "Gagal Menambahkan Product",
       });
@@ -104,7 +106,7 @@ const ModalUpdateProduct = (props: propTypes) => {
                 updateProduct(downloadURL, form);
               }
             } catch (error) {
-              setToaster({
+              theme?.setToaster({
                 variant: "failed",
                 message: "Gagal Menambahkan Product at Upload Image",
               });

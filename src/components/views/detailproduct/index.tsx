@@ -6,23 +6,24 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Rating } from "@mui/material";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { ThemeContext } from "@/components/elements/contextAPI";
 
 type propTypes = {
   product: Product | any;
-  carts: any;
+  carts: [];
   productId: string;
   favorite: [];
   setFavorite: Dispatch<SetStateAction<[]>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const DetailProduct = (props: propTypes) => {
-  const { product, carts, productId, setToaster, favorite, setFavorite } =
-    props;
-  const [stars, setStars] = useState<any>(Array(5).fill(true));
+  const theme = useContext(ThemeContext);
+  const { product, carts, productId, favorite, setFavorite } = props;
   const [selectedSize, setSelectedSize] = useState(0);
-  const [countProduct, setCountProduct] = useState(0);
+  const [warningAddToCart, setWarningAddToCart] = useState(false);
+  const [countProduct, setCountProduct] = useState(1);
   const [cartsData, setCartsData] = useState([]);
   const session: any = useSession();
   const router = useRouter();
@@ -39,14 +40,14 @@ const DetailProduct = (props: propTypes) => {
       if (result.status === 200) {
         setCartsData(newCarts);
         setSelectedSize(0);
-        setCountProduct(0);
-        setToaster({
+        setCountProduct(1);
+        theme?.setToaster({
           variant: "success",
           message: "Berhasil Menambahkan Ke Cart",
         });
       }
     } catch (error) {
-      setToaster({
+      theme?.setToaster({
         variant: "failed",
         message: "Gagal Menambahkan Ke Cart",
       });
@@ -68,19 +69,19 @@ const DetailProduct = (props: propTypes) => {
         );
         setFavorite(data.data);
         if (type === "add") {
-          setToaster({
+          theme?.setToaster({
             variant: "success",
             message: "Berhasil Menambahkan Ke Favorite",
           });
         } else {
-          setToaster({
+          theme?.setToaster({
             variant: "success",
             message: "Berhasil Menghapus di Favorite",
           });
         }
       }
     } catch (error) {
-      setToaster({
+      theme?.setToaster({
         variant: "failed",
         message: "Gagal Menambahkan Ke Favorite",
       });
@@ -147,8 +148,10 @@ const DetailProduct = (props: propTypes) => {
         <p>
           <Link href={"/"}>Beranda</Link> {">"}{" "}
           <Link href={"/products"}>Products</Link> {">"}{" "}
-          <Link href={"/products/sepatu"}>Sepatu</Link> {">"}{" "}
-          <Link href={`/products/${productId}`}>{product?.name}</Link>
+          <Link href={`/products?q=${product.category}`}>
+            {product.category}
+          </Link>{" "}
+          {">"} <Link href={`/products/${productId}`}>{product?.name}</Link>
         </p>
       </div>
       <div className="grid grid-cols-2 gap-4 bg-white">
@@ -176,18 +179,13 @@ const DetailProduct = (props: propTypes) => {
           <div className="flex gap-4">
             <p className="text-sm opacity-70 pe-4 border-e-2 border-gray-100">
               <span className="opacity-100 font-semibold text-lg">4,3</span>{" "}
-              <i className="bx bxs-star text-blue-800" />
-              <i className="bx bxs-star text-blue-800" />
-              <i className="bx bxs-star text-blue-800" />
-              <i className="bx bxs-star text-blue-800" />
-              <i className="bx bxs-star text-blue-800" />
-              {stars.map((star: number, index: number) => {
-                <>
-                  <p>star</p>
-                  <i key={index} className="bx bxs-star" />
-                  <p>hai</p>
-                </>;
-              })}
+              <Rating
+                name="read-only"
+                value={4.5}
+                precision={0.5}
+                readOnly
+                className="text-[1rem] "
+              />
             </p>
             <p className="text-sm opacity-70 pe-4 border-e-2 border-gray-100">
               <span className="opacity-100 font-semibold text-lg">10,5RB</span>{" "}
@@ -260,14 +258,21 @@ const DetailProduct = (props: propTypes) => {
               </p>
             </div>
           </div>
+          {warningAddToCart ? (
+            <p className="text-red-500 mb-2">Pilih ukuran terlebih dahulu</p>
+          ) : (
+            ""
+          )}
           <Button
             type={session.status === "authenticated" ? "submit" : "button"}
             className="py-4 rounded-full flex gap-3 bg-blue-700 font-semibold items-center justify-center"
             onClick={() => {
-              if (selectedSize !== 0 && countProduct !== 0) {
+              if (selectedSize !== 0) {
                 session.status === "authenticated"
                   ? addToCart()
                   : router.push(`/auth/signin?callbackUrl=${router.asPath}`);
+              } else {
+                setWarningAddToCart(true);
               }
             }}
           >
@@ -310,6 +315,7 @@ const DetailProduct = (props: propTypes) => {
       <hr className="bg-gray-200 h-[0.15rem] rounded-full" />
       <div className="py-4">
         <p className="text-lg font-semibold">Detail Produk</p>
+        <p>Mamah Tukinah bakso</p>
       </div>
     </div>
   );

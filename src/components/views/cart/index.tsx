@@ -1,4 +1,5 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import productsServices from "@/services/products";
 import userServices from "@/services/user";
 import { convertIDR } from "@/utils/currency";
@@ -8,6 +9,7 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -18,17 +20,16 @@ type proptypes = {
   favorite: [];
   setFavorite: Dispatch<SetStateAction<[]>>;
   setCarts: Dispatch<SetStateAction<[]>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const CartViews = (props: proptypes) => {
-  const { carts, setCarts, favorite, setFavorite, setToaster } = props;
+  const theme = useContext(ThemeContext);
+  const { carts, setCarts, favorite, setFavorite } = props;
   const session: any = useSession();
   const startRef: any = useRef(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isFixedTop, setIsFixedTop] = useState(true);
   const [cartsData, setCartsData] = useState<any>([]);
-  const [countProduct, setCountProduct] = useState(0);
   const [isFixedBottom, setIsFixedBottom] = useState(false);
   const handleUpdateProduct = async (
     type: string,
@@ -88,19 +89,19 @@ const CartViews = (props: proptypes) => {
         );
         setFavorite(data.data);
         if (type === "add") {
-          setToaster({
+          theme?.setToaster({
             variant: "success",
             message: "Berhasil Menambahkan Ke Favorite",
           });
         } else {
-          setToaster({
+          theme?.setToaster({
             variant: "success",
             message: "Berhasil Menghapus di Favorite",
           });
         }
       }
     } catch (error) {
-      setToaster({
+      theme?.setToaster({
         variant: "failed",
         message: "Gagal Menambahkan Ke Favorite",
       });
@@ -186,7 +187,7 @@ const CartViews = (props: proptypes) => {
   }, [cartsData]);
 
   return (
-    <div className="px-16 flex w-full h-full py-2 box-border">
+    <div className="px-16 flex w-full h-full py-2 box-border mb-4">
       <div className="w-2/3 box-border">
         <p className="text-xl pb-4">Cart</p>
         <div className="flex flex-col gap-2">

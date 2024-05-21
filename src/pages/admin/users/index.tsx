@@ -1,13 +1,9 @@
 import AdminUsersView from "@/components/views/admin/Users";
 import userServices from "@/services/user";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type propTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
-};
 
-const AdminUsersPage = (props: propTypes) => {
-  const { setToaster } = props;
+const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getAlluser = async () => {
@@ -19,7 +15,7 @@ const AdminUsersPage = (props: propTypes) => {
 
   return (
     <>
-      <AdminUsersView users={users} setToaster={setToaster} />
+      <AdminUsersView users={users} />
     </>
   );
 };

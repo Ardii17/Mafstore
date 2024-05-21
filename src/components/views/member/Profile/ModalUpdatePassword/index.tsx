@@ -1,16 +1,16 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
 import { User } from "@/types";
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { FormEvent, useContext } from "react";
 
 type propTypes = {
   profile: User;
   setEditPassword: (boolean: boolean) => void;
   setErrorPassword: (string: string) => void;
   errorPassword: string;
-  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
@@ -21,8 +21,8 @@ const ModalUpdatePassword = (props: propTypes) => {
     setEditPassword,
     setErrorPassword,
     errorPassword,
-    setToaster,
   } = props;
+  const theme = useContext(ThemeContext);
 
   const handleEditPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ const ModalUpdatePassword = (props: propTypes) => {
         if (result.status === 200) {
           setEditPassword(false);
           setErrorPassword("");
-          setToaster({
+          theme?.setToaster({
             variant: "success",
             message: "Berhasil Merubah Password",
           });

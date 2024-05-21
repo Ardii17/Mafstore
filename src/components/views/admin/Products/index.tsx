@@ -1,9 +1,6 @@
 import Button from "@/components/elements/button";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
   useEffect,
   useState,
 } from "react";
@@ -14,14 +11,15 @@ import ModalDeleteProduct from "./ModalDeleteProduct";
 import { useSession } from "next-auth/react";
 import ModalUpdateProduct from "./ModalUpdateProduct";
 import { Product } from "@/types";
+import { useRouter } from "next/router";
 
 type propTypes = {
   products: Product[];
-  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const AdminProductsView = (props: propTypes) => {
-  const { products, setToaster } = props;
+  const { products } = props;
+  const { push } = useRouter();
   const [ModalDelete, setModalDelete] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState<Product | {}>({});
   const [idProduct, setIdProduct] = useState<string>("");
@@ -49,7 +47,14 @@ const AdminProductsView = (props: propTypes) => {
     <>
       <AdminLayout>
         <div className="p-4 w-full">
-          <p className="text-xl mb-2">Products Management</p>
+          <div className="flex gap-2 mb-2 items-center">
+            <button onClick={() => push("/")}>
+              <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
+            </button>
+            <p className="text-lg bg-blue-700 py-[6px] px-4 rounded text-white">
+              Products Management
+            </p>
+          </div>
           <div className="w-full flex justify-between">
             <Button
               type="button"
@@ -82,7 +87,6 @@ const AdminProductsView = (props: propTypes) => {
       </AdminLayout>
       {modalAddProduct && (
         <ModalAddProduct
-          setToaster={setToaster}
           setModalAddProduct={setModalAddProduct}
           setProducts={setProductsData}
         />
@@ -93,11 +97,16 @@ const AdminProductsView = (props: propTypes) => {
           setModalDelete={setModalDelete}
           id={idProduct}
           setProductsData={setProductsData}
-          setToaster={setToaster}
           session={session}
         />
       )}
-      {Object.keys(updatedProduct).length > 0 && <ModalUpdateProduct setProducts={setProductsData} updatedProduct={updatedProduct} setToaster={setToaster} setModalUpdateProduct={() => setUpdatedProduct({})} />}
+      {Object.keys(updatedProduct).length > 0 && (
+        <ModalUpdateProduct
+          setProducts={setProductsData}
+          updatedProduct={updatedProduct}
+          setModalUpdateProduct={() => setUpdatedProduct({})}
+        />
+      )}
     </>
   );
 };

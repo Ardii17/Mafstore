@@ -1,13 +1,14 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
 import userServices from "@/services/user";
 import { User } from "@/types";
 import {
-  ChangeEvent,
   Dispatch,
   FormEvent,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 
@@ -15,15 +16,14 @@ type propTypes = {
   profile: User;
   setEditProfile: Dispatch<SetStateAction<boolean>>;
   setProfileData: Dispatch<SetStateAction<{}>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
   session: any;
 };
 
 const ModalUpdateProfile = (props: propTypes) => {
+  const theme = useContext(ThemeContext);
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
-  const { profile, setEditProfile, session, setProfileData, setToaster } =
-    props;
+  const { profile, setEditProfile, session, setProfileData } = props;
 
   const handleEditProfile = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const ModalUpdateProfile = (props: propTypes) => {
       setEditProfile(false);
       const { data } = await userServices.getProfile(session.data?.accessToken);
       setProfileData(data.data);
-      setToaster({
+      theme?.setToaster({
         variant: "success",
         message: "Berhasil Merubah Profile",
       });

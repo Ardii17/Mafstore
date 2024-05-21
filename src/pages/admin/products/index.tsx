@@ -1,13 +1,8 @@
 import AdminProductsView from "@/components/views/admin/Products";
 import productsServices from "@/services/products";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type propTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
-};
-
-const AdminProductsPage = (props: propTypes) => {
-  const { setToaster } = props;
+const AdminProductsPage = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const getAllProducts = async () => {
@@ -19,7 +14,7 @@ const AdminProductsPage = (props: propTypes) => {
 
   return (
     <>
-      <AdminProductsView products={products} setToaster={setToaster} />
+      <AdminProductsView products={products} />
     </>
   );
 };

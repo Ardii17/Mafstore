@@ -3,18 +3,15 @@ import productsServices from "@/services/products";
 import userServices from "@/services/user";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type proptypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
-};
-
-const DetailProductPage = (props: proptypes) => {
-  const { setToaster } = props;
+const DetailProductPage = () => {
   const [product, setProduct] = useState({});
-  const [carts, setCarts] = useState({});
+  const [carts, setCarts] = useState<[]>([]);
   const [favorite, setFavorite] = useState<[]>([]);
-  const { id } = useRouter().query;
+  // const { id } = useRouter().query;
+  const query = useRouter();
+  const { id }: any = query.query;
   const session: any = useSession();
 
   const getProduct = async (id: string) => {
@@ -33,7 +30,9 @@ const DetailProductPage = (props: proptypes) => {
   };
 
   useEffect(() => {
-    getProduct(id as string);
+    if (id) {
+      getProduct(id as string);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -55,7 +54,6 @@ const DetailProductPage = (props: proptypes) => {
       favorite={favorite}
       setFavorite={setFavorite}
       productId={id as string}
-      setToaster={setToaster}
     />
   );
 };

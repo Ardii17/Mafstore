@@ -1,15 +1,14 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
+import Progress from "@/components/elements/progress";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useContext, useState } from "react";
 
-export default function Home({
-  setToaster,
-}: {
-  setToaster: Dispatch<SetStateAction<{}>>;
-}) {
+export default function Home() {
+  const theme = useContext(ThemeContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -31,7 +30,7 @@ export default function Home({
       if (!res?.error) {
         setLoading(false);
         formData.reset();
-        setToaster({
+        theme?.setToaster({
           variant: "success",
           message: "Berhasil Masuk Akun",
         });
@@ -56,7 +55,15 @@ export default function Home({
         <Input label="Email" type="email" name="email" required />
         <Input label="Password" type="password" name="password" required />
         <span className="text-red-500 w-full">{error ? error : ""}</span>
-        <Button type="submit">{loading ? "Loading..." : "Masuk"}</Button>
+        <Button type="submit">
+          {loading ? (
+            <div className="w-full justify-center items-center">
+              <Progress />
+            </div>
+          ) : (
+            "Masuk"
+          )}
+        </Button>
       </form>
       <hr className="border border-slate-300 w-full" />
       <Button

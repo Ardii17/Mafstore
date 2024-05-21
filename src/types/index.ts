@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type User = {
   username?: string;
   email?: string;
@@ -21,4 +23,12 @@ export type Product = {
   stock: number;
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+export type ToasterTypes = {
+  toaster?: {
+    variant?: string;
+    message?: string;
+  };
+  setToaster: Dispatch<SetStateAction<{}>>;
 };

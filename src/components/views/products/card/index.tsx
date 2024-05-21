@@ -1,10 +1,11 @@
+import { Product } from "@/types";
 import { convertIDR } from "@/utils/currency";
 import Image from "next/image";
 import Link from "next/link";
 
 type propTypes = {
-  product: any;
-  key: string
+  product: Product;
+  key: number
 };
 
 const Card = (props: propTypes) => {

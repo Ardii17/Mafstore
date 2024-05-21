@@ -1,4 +1,5 @@
 import Button from "@/components/elements/button";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import Input from "@/components/elements/input";
 import Select from "@/components/elements/select";
 import ModalUpdate from "@/components/fragments/ModalUpdate";
@@ -11,17 +12,18 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 
 type propTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
   setProducts: Dispatch<SetStateAction<Product[]>>;
   setModalAddProduct: Dispatch<SetStateAction<boolean>>;
 };
 
 const ModalAddProduct = (props: propTypes) => {
-  const { setToaster, setModalAddProduct, setProducts } = props;
+  const theme = useContext(ThemeContext);
+  const { setModalAddProduct, setProducts } = props;
   const session: any = useSession();
   const [stock, setStock] = useState([
     {
@@ -67,7 +69,7 @@ const ModalAddProduct = (props: propTypes) => {
               if (result.status === 200) {
                 form.reset();
                 setModalAddProduct(false);
-                setToaster({
+                theme?.setToaster({
                   variant: "success",
                   message: "Berhasil Menambah Product",
                 });
@@ -75,7 +77,7 @@ const ModalAddProduct = (props: propTypes) => {
                 setProducts(data.data);
               }
             } catch (error) {
-              setToaster({
+              theme?.setToaster({
                 variant: "failed",
                 message: "Gagal Menambahkan Product at Upload Image",
               });
@@ -107,7 +109,7 @@ const ModalAddProduct = (props: propTypes) => {
     if (result.status === 200) {
       uploadFile(result.data.data.id, form);
     } else {
-      setToaster({
+      theme?.setToaster({
         variant: "failed",
         message: "Gagal Menambahkan Product",
       });

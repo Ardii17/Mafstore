@@ -6,16 +6,17 @@ import ModalUpdatePassword from "./ModalUpdatePassword";
 import ModalUpdateProfile from "./ModalUpdateProfile";
 import AvatarProfile from "./Avatar";
 import { User } from "@/types";
+import { useRouter } from "next/router";
 
 type propTypes = {
   profile: User;
   setProfile: Dispatch<SetStateAction<User>>;
   session: any;
-  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const MemberProfileView = (props: propTypes) => {
-  const { profile, setProfile, session, setToaster } = props;
+  const { push } = useRouter();
+  const { profile, setProfile, session } = props;
   const [profileData, setProfileData] = useState({ ...profile });
   const [editProfile, setEditProfile] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
@@ -28,13 +29,20 @@ const MemberProfileView = (props: propTypes) => {
   return (
     <>
       <MemberLayout>
+        <div className="flex gap-2 mb-2 items-center">
+          <button onClick={() => push("/")}>
+            <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
+          </button>
+          <p className="text-lg bg-blue-700 py-[6px] px-4 rounded text-white">
+            Profile
+          </p>
+        </div>
         <div className="flex gap-4 mt-4">
           <AvatarProfile
             profile={profile}
             setProfile={setProfile}
             profileData={profileData}
             session={session}
-            setToaster={setToaster}
           />
           <div className="w-[75%] shadow rounded-md p-4">
             <p className="place-self-start text-xl mb-2">Profile</p>
@@ -111,7 +119,6 @@ const MemberProfileView = (props: propTypes) => {
           setEditPassword={setEditPassword}
           setErrorPassword={setErrorPassword}
           errorPassword={errorPassword}
-          setToaster={setToaster}
         />
       )}
       {editProfile && (
@@ -120,7 +127,6 @@ const MemberProfileView = (props: propTypes) => {
           setProfileData={setProfileData}
           session={session}
           setEditProfile={setEditProfile}
-          setToaster={setToaster}
         />
       )}
     </>
