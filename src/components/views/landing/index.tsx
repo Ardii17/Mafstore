@@ -18,7 +18,7 @@ const LandingViews = (props: proptypes) => {
   const { carousel, menus, poster, products, category } = props;
 
   return (
-    <div className="py-4 bg-gray-100 max-sm:px-2 max-md:px-4 lg:px-12 flex flex-col gap-4">
+    <div className="py-4 bg-gray-100 max-sm:px-2 md:px-4 lg:px-12 flex flex-col gap-4">
       <CarouselPage carousel={carousel} />
       <Menus menus={menus} category={category} />
       <Banner src={poster[0]?.link} />

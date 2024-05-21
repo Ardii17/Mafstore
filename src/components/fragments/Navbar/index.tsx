@@ -14,6 +14,7 @@ const Navbar = () => {
   const session: any = useSession();
   const router = useRouter();
   const refSearch: any = useRef(null);
+  const inputSearch: any = useRef(null);
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form: any = e.target as HTMLFormElement;
@@ -21,6 +22,11 @@ const Navbar = () => {
     setOnSearch(false);
     form.search.blur();
     form.reset();
+  };
+  const handleOnSearch = () => {
+    if (inputSearch.current) {
+      inputSearch.current.focus();
+    }
   };
 
   useEffect(() => {
@@ -69,12 +75,10 @@ const Navbar = () => {
               onSearch ? "fixed top-0 left-0 right-0" : ""
             } flex max-sm:px-2 px-4 lg:px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-50`}
           >
-            <div
-              className={`${onSearch ? "hidden" : ""} flex gap-4 items-center`}
-            >
-              <i className="bx bx-menu max-md:block lg:hidden text-2xl" />
+            <div className={`flex gap-4 items-center`}>
+              <i className="bx bx-menu max-md:block lg:hidden text-2xl md:hidden" />
               <p
-                className="lg:text-3xl sm:text-xl max-md:text-2xl max-md:font-semibold lg:font-bold font-mono md:pe-4 lg:pe-28 cursor-default"
+                className="lg:text-3xl max-sm:text-lg max-md:text-2xl max-md:font-semibold lg:font-bold font-mono md:pe-4 lg:pe-28 cursor-default"
                 onClick={() => router.push("/")}
               >
                 Mafstore
@@ -92,16 +96,17 @@ const Navbar = () => {
               <li className="cursor-pointer">Adult</li>
             </ul>
             {session.status === "authenticated" ? (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 ">
                 <div
                   className={`${
-                    onSearch
-                      ? "max-sm:left-0 max-md:-left-32 -left-52"
-                      : "left-0"
+                    onSearch ? "lg:-left-52 md:-left-16" : "left-0"
                   } relative transition-all gap-2 max-sm:justify-center flex items-center`}
                 >
                   {onSearch && (
-                    <i className="bx bx-left-arrow-alt text-2xl p-1" />
+                    <i
+                      className="bx bx-left-arrow-alt text-2xl p-1 max-sm:block md:hidden lg:hidden"
+                      onClick={() => setOnSearch(false)}
+                    />
                   )}
                   <form
                     className="flex max-sm:gap-2 md:gap-4"
@@ -110,8 +115,8 @@ const Navbar = () => {
                     <div>
                       <i
                         className={`${
-                          onSearch ? "block" : "max-md:hidden max-sm:hidden"
-                        } bx bx-search absolute left-4 lg:block top-1/2 -translate-y-1/2 text-xl text-black`}
+                          onSearch ? "block" : "md:hidden max-sm:hidden"
+                        } bx bx-search absolute left-4 max-sm:left-12 lg:block top-1/2 -translate-y-1/2 text-xl text-black`}
                       />
                       <input
                         type="text"
@@ -119,9 +124,10 @@ const Navbar = () => {
                         onFocus={() => setOnSearch(true)}
                         placeholder="Search products"
                         autoComplete="off"
+                        ref={inputSearch}
                         className={`${
                           onSearch ? "block" : "max-md:hidden sm:hidden"
-                        } bg-gray-200 transition-all lg:block rounded-full w-56 lg:focus:w-96 py-2 ps-12 pe-4 text-black`}
+                        } bg-gray-200 transition-all lg:block rounded-full w-56 focus:w-96 py-2 max-sm:ps-8 md:ps-12 pe-4 text-black`}
                       />
                     </div>
                     <Button
@@ -147,7 +153,9 @@ const Navbar = () => {
                 >
                   <i
                     className="bx bx-search max-sm:text-xl text-2xl md:block"
-                    onClick={() => setOnSearch(true)}
+                    onClick={() => {
+                      setOnSearch(true), inputSearch.current.focus();
+                    }}
                   />
                   <i
                     className="bx bx-bell max-sm:text-xl text-2xl cursor-pointer"

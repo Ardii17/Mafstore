@@ -44,17 +44,17 @@ const Slider = (props: proptypes) => {
 
   useEffect(() => {
     if (refCard.current && theme?.deviceType === "tablet") {
-      setWidthCard((refCard.current.offsetWidth - 24) / 3 - 3);
+      setWidthCard((refCard.current.offsetWidth - 10) / 3 - 3);
     } else if (refCard.current && theme?.deviceType === "desktop") {
-      setWidthCard((refCard.current.offsetWidth - 32) / 4);
+      setWidthCard((refCard.current.offsetWidth - 30) / 4);
     } else if (refCard.current && theme?.deviceType === "mobile") {
-      setWidthCard((refCard.current.offsetWidth - 16) / 3);
+      setWidthCard((refCard.current.offsetWidth - 8) / 2 - 3);
     }
   }, [refCard.current]);
 
   return (
-    <div className="w-full relative rounded">
-      <div className="flex gap-2 lg:min-h-[380px] max-md:min-h-[350px] max-sm:min-h-[200px]">
+    <div className="w-full relative rounded max-sm:bg-white max-sm:shadow">
+      <div className="flex gap-2 lg:min-h-[380px] md:min-h-[350px] max-sm:min-h-[100px]">
         <div className="w-1/4 h-full relative z-0 max-sm:hidden">
           <Image
             src="/Random/banner.png"
@@ -75,21 +75,24 @@ const Slider = (props: proptypes) => {
               onMouseLeave={() => setOnHoverPrev(false)}
             />
           )}
-          <div
-            className="min-w-full flex gap-2 py-1 transition-all z-10"
-            style={{
-              transform: `translateX(${currentPosition * widthCard}px)`,
-            }}
-            ref={refCard}
-          >
-            {products.map((product: Product) => (
-              <div
-                className={`min-h-full`}
-                style={{ minWidth: `${widthCard}px` }}
-              >
-                <CardProduct product={product} key={product.id} />
-              </div>
-            ))}
+          <div className="flex flex-col w-full">
+            <p className="md:hidden text-blue-700 px-2 font-bold rounded">LAGI HITS</p>
+            <div
+              className="min-w-full flex gap-2 py-1 transition-all z-10"
+              style={{
+                transform: `translateX(${(currentPosition * widthCard) - currentPosition * -7}px)`,
+              }}
+              ref={refCard}
+            >
+              {products.map((product: Product) => (
+                <div
+                  className={`min-h-full`}
+                  style={{ minWidth: `${widthCard}px` }}
+                >
+                  <CardProduct product={product} key={product.id} />
+                </div>
+              ))}
+            </div>
           </div>
           {currentPosition !== -4 && (
             <i

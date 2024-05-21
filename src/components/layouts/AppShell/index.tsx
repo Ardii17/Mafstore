@@ -19,7 +19,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
       <div>{children}</div>
       {!disableNavbar.includes(pathname.split("/")[1]) && <Footer />}
-      {theme?.toaster && Object.keys(theme?.toaster).length > 0 && <Toaster />}
+      {theme?.deviceType === "desktop" && theme?.toaster && Object.keys(theme?.toaster).length > 0 && <Toaster />}
     </div>
   );
 }

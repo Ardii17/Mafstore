@@ -2,6 +2,8 @@ import { Product } from "@/types";
 import { convertIDR } from "@/utils/currency";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
+import { ThemeContext } from "../contextAPI";
 
 type proptypes = {
   product: Product;
@@ -10,6 +12,7 @@ type proptypes = {
 };
 
 const CardProduct = (props: proptypes) => {
+  const theme = useContext(ThemeContext);
   const { product, className, key } = props;
   return (
     <Link
@@ -23,7 +26,7 @@ const CardProduct = (props: proptypes) => {
           alt="Coba Gambar"
           width={250}
           height={100}
-          className="object-cover rounded aspect-square md:hidden lg:block min-w-[250] h-full"
+          className="object-cover rounded aspect-square md:hidden lg:block min-w-[250] h-full max-sm:hidden"
         />
         <Image
           src={product.image}
@@ -34,12 +37,18 @@ const CardProduct = (props: proptypes) => {
         />
         <div className="flex flex-col gap-2 p-2 justify-between h-full">
           <div>
-            <p className="">{product.name}</p>
-            <p className="opacity-65">{product.category}</p>
+            <p className="max-sm:text-sm">
+              {theme?.deviceType === "mobile" && product.name.length > 30
+                ? `${product.name.slice(0, 30)}...`
+                : product.name}
+            </p>
+            <p className="opacity-65 max-sm:text-sm">{product.category}</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-lg text-blue-700">{convertIDR(product.price)}</p>
-            <p className="opacity-70 text-sm">5 Terjual</p>
+            <p className="text-lg text-blue-700 max-sm:text-sm">
+              {convertIDR(product.price)}
+            </p>
+            <p className="opacity-70 text-sm text-[10px]">5 Terjual</p>
           </div>
         </div>
       </div>

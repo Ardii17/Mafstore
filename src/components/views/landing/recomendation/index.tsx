@@ -15,9 +15,11 @@ const Recomendation = (props: proptypes) => {
 
   useEffect(() => {
     if (theme?.deviceType === "tablet" && cardRef.current) {
-      setCardWidth((cardRef.current.offsetWidth - 32) / 4);
+      setCardWidth((cardRef.current.offsetWidth - 24) / 4);
     } else if (theme?.deviceType === "desktop" && cardRef.current) {
-      setCardWidth((cardRef.current.offsetWidth - 32) / 5);
+      setCardWidth((cardRef.current.offsetWidth - 48) / 5);
+    } else if (theme?.deviceType === "mobile" && cardRef.current) {
+      setCardWidth((cardRef.current.offsetWidth - 8) / 2);
     }
   }, []);
 
@@ -27,31 +29,24 @@ const Recomendation = (props: proptypes) => {
         REKOMENDASI
       </p>
       <div
-        className="overflow-hidden w-full grid md:grid-cols-4 max-lg:grid-cols-5 gap-2"
+        className="overflow-hidden w-full grid md:grid-cols-4 lg:grid-cols-5 gap-2 max-sm:grid-cols-2"
         ref={cardRef}
       >
         {products &&
           products.map((product: Product) => (
             <div
-              className={`min-h-full`}
               style={{ minWidth: `${cardWidth}px` }}
             >
-              <CardProduct
-                product={product}
-                key={product.id}
-              />
+              <CardProduct product={product} key={product.id} />
             </div>
           ))}
         {products &&
           products.map((product: Product) => (
             <div
               className={`min-h-full`}
-              style={{ minWidth: `${cardWidth}px` }}
+              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
             >
-              <CardProduct
-                product={product}
-                key={product.id}
-              />
+              <CardProduct product={product} key={product.id} />
             </div>
           ))}
       </div>

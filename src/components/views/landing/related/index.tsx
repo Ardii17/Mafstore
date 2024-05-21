@@ -9,7 +9,7 @@ type proptypes = {
 
 const Related = (props: proptypes) => {
   const { products } = props;
-  const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext);
   const cardRef: any = useRef(null);
   const [widthCard, setWidthCard] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
@@ -38,15 +38,17 @@ const Related = (props: proptypes) => {
 
   useEffect(() => {
     if (theme?.deviceType === "tablet" && cardRef.current) {
-      setWidthCard((cardRef.current.offsetWidth - 32) / 4);
+      setWidthCard((cardRef.current.offsetWidth - 38) / 4);
     } else if (theme?.deviceType === "desktop" && cardRef.current) {
-      setWidthCard((cardRef.current.offsetWidth - 32) / 5);
+      setWidthCard((cardRef.current.offsetWidth - 50) / 5);
+    } else if (theme?.deviceType === "mobile" && cardRef.current) {
+      setWidthCard((cardRef.current.offsetWidth - 8) / 2 - 3);
     }
   }, []);
 
   return (
     <div
-      className="w-full p-2 bg-white rounded flex flex-col gap-2 relative shadow"
+      className="w-full p-2 bg-white rounded flex flex-col gap-2 relative shadow h-auto"
       ref={cardRef}
     >
       {currentPosition !== 0 && (
@@ -64,9 +66,11 @@ const Related = (props: proptypes) => {
       </p>
       <div className="overflow-hidden w-full">
         <div
-          className="flex w-full gap-2 transition-all"
+          className="flex w-full gap-2 transition-all h-full"
           style={{
-            transform: `translateX(${currentPosition * (widthCard + 7.3)}px)`,
+            transform: `translateX(${
+              currentPosition * widthCard - currentPosition * -9
+            }px)`,
           }}
         >
           {products &&
@@ -75,10 +79,7 @@ const Related = (props: proptypes) => {
                 className="min-h-full"
                 style={{ minWidth: `${widthCard}px` }}
               >
-                <CardProduct
-                  product={product}
-                  key={product.id}
-                />
+                <CardProduct product={product} key={product.id} />
               </div>
             ))}
         </div>

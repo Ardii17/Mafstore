@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <AuthLayout
-      title="Daftar Akun"
+      title="Daftar Akun Mafstore"
       linkText="Sudah punya akun? Masuk "
       link="/auth/signin"
     >

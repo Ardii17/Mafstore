@@ -19,10 +19,10 @@ const Menus = (props: proptypes) => {
   ];
 
   return (
-    <div className="rounded bg-white p-4 flex md:gap-4 lg:gap-4 lg:flex-row shadow max-md:flex-col sm:flex-col">
+    <div className="rounded bg-white max-sm:p-2 md:p-4 flex md:gap-4 lg:gap-4 lg:flex-row shadow max-md:flex-col sm:flex-col">
       <div className="lg:w-1/3 md:w-full p-2 sm:w-full">
         <p className="mb-4 text-lg font-bold text-blue-700">MENU</p>
-        <div className="grid lg:grid-cols-3 max-md:grid-cols-7 gap-2 place-content-start max-sm:grid-cols-3">
+        <div className="grid lg:grid-cols-3 md:grid-cols-7 gap-2 place-content-start max-sm:grid-cols-3">
           {menus &&
             menus.map((menu: any, index: number) => (
               <div className="flex flex-col items-center justify-start gap-2">
@@ -34,7 +34,7 @@ const Menus = (props: proptypes) => {
                     height={30}
                   />
                 </div>
-                <p className="text-center">{nameIcon[index]} </p>
+                <p className="text-center max-sm:text-sm">{nameIcon[index]} </p>
               </div>
             ))}
         </div>
@@ -48,16 +48,16 @@ const Menus = (props: proptypes) => {
               <Link
                 href={`/products?q=${item.name.split(".")[0]}`}
                 key={index}
-                className="border-2 border-gray-100 rounded-md flex flex-col gap-2 items-center justify-center"
+                className="border-2 border-gray-100 rounded-md flex flex-col gap-2 items-center justify-center p-1"
               >
                 <Image
                   src={item.link}
                   alt={item.name}
                   width={100}
                   height={100}
-                  className="drop-shadow w-28 h-28 object-cover aspect-square"
+                  className="drop-shadow w-28 h-28 object-cover aspect-square max-sm:max-h-[80px]"
                 />
-                <p>{item.name.split(".")[0]}</p>
+                <p className="max-sm:text-[11px]">{item.name.split(".")[0]}</p>
               </Link>
             )
           )}
