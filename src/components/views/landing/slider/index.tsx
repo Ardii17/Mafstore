@@ -76,7 +76,7 @@ const Slider = (props: proptypes) => {
             />
           )}
           <div className="flex flex-col w-full">
-            <p className="md:hidden text-blue-700 px-2 font-bold rounded">LAGI HITS</p>
+            <p className="md:hidden text-blue-700 p-2 font-semibold rounded ">LAGI HITS</p>
             <div
               className="min-w-full flex gap-2 py-1 transition-all z-10"
               style={{
