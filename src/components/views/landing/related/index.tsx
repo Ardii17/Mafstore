@@ -37,14 +37,14 @@ const Related = (props: proptypes) => {
   }, [currentPosition]);
 
   useEffect(() => {
-    if (theme?.deviceType === "tablet" && cardRef.current) {
-      setWidthCard((cardRef.current.offsetWidth - 38) / 4);
-    } else if (theme?.deviceType === "desktop" && cardRef.current) {
-      setWidthCard((cardRef.current.offsetWidth - 50) / 5);
-    } else if (theme?.deviceType === "mobile" && cardRef.current) {
+    if (cardRef.current && theme?.deviceType === "tablet") {
+      setWidthCard((cardRef.current.offsetWidth - 10) / 3 - 3);
+    } else if (cardRef.current && theme?.deviceType === "desktop") {
+      setWidthCard((cardRef.current.offsetWidth - 30) / 4);
+    } else if (cardRef.current && theme?.deviceType === "mobile") {
       setWidthCard((cardRef.current.offsetWidth - 8) / 2 - 3);
     }
-  }, []);
+  }, [cardRef.current]);
 
   return (
     <div
@@ -77,7 +77,7 @@ const Related = (props: proptypes) => {
             products.map((product: Product) => (
               <div
                 className="min-h-full"
-                style={{ minWidth: `${widthCard}px` }}
+                style={{ minWidth: `${widthCard}px`, width: `${widthCard}px` }}
               >
                 <CardProduct product={product} key={product.id} />
               </div>

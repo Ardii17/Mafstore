@@ -45,10 +45,10 @@ const CardProduct = (props: proptypes) => {
             <p className="opacity-65 max-sm:text-sm">{product.category}</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-lg text-blue-700 max-sm:text-sm">
+            <p className="text-lg text-blue-700 max-sm:text-[8px]">
               {convertIDR(product.price)}
             </p>
-            <p className="opacity-70 text-sm text-[10px]">5 Terjual</p>
+            <p className="opacity-70 text-sm max-sm:text-[8px]">5 Terjual</p>
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const Recomendation = (props: proptypes) => {
     } else if (theme?.deviceType === "mobile" && cardRef.current) {
       setCardWidth((cardRef.current.offsetWidth - 8) / 2);
     }
-  }, []);
+  }, [cardRef.current]);
 
   return (
     <div className="w-full p-2 bg-white rounded flex flex-col gap-2 shadow">
@@ -34,18 +34,13 @@ const Recomendation = (props: proptypes) => {
       >
         {products &&
           products.map((product: Product) => (
-            <div
-              style={{ minWidth: `${cardWidth}px` }}
-            >
+            <div style={{ minWidth: `${cardWidth}px` }}>
               <CardProduct product={product} key={product.id} />
             </div>
           ))}
         {products &&
           products.map((product: Product) => (
-            <div
-              className={`min-h-full`}
-              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
-            >
+            <div style={{ minWidth: `${cardWidth}px` }}>
               <CardProduct product={product} key={product.id} />
             </div>
           ))}
