@@ -1,6 +1,7 @@
 import CardProduct from "@/components/elements/cardproduct";
+import { ThemeContext } from "@/components/elements/contextAPI";
 import { Product } from "@/types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 type proptypes = {
   products: Product[];
@@ -8,6 +9,9 @@ type proptypes = {
 
 const Related = (props: proptypes) => {
   const { products } = props;
+  const theme = useContext(ThemeContext)
+  const cardRef: any = useRef(null);
+  const [widthCard, setWidthCard] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [onHoverPrev, setOnHoverPrev] = useState(false);
   const [onHoverNext, setOnHoverNext] = useState(false);
@@ -32,13 +36,24 @@ const Related = (props: proptypes) => {
     }
   }, [currentPosition]);
 
+  useEffect(() => {
+    if (theme?.deviceType === "tablet" && cardRef.current) {
+      setWidthCard((cardRef.current.offsetWidth - 32) / 4);
+    } else if (theme?.deviceType === "desktop" && cardRef.current) {
+      setWidthCard((cardRef.current.offsetWidth - 32) / 5);
+    }
+  }, []);
+
   return (
-    <div className="w-full p-2 bg-white rounded flex flex-col gap-2 relative shadow">
+    <div
+      className="w-full p-2 bg-white rounded flex flex-col gap-2 relative shadow"
+      ref={cardRef}
+    >
       {currentPosition !== 0 && (
         <i
           className={`${
             onHoverPrev ? "opacity-100 scale-125" : "opacity-70"
-          } bx bx-chevron-left absolute -left-5 bg-white shadow-md -translate-y-1/2 text-2xl top-1/2 py-[1px] px-1 transition-all rounded-full z-20 cursor-pointer`}
+          } bx bx-chevron-left absolute left-0 bg-white shadow-md -translate-y-1/2 text-2xl top-1/2 py-[1px] px-1 transition-all rounded-full z-20 cursor-pointer`}
           onClick={handlePrevCurrentPosition}
           onMouseEnter={() => setOnHoverPrev(true)}
           onMouseLeave={() => setOnHoverPrev(false)}
@@ -50,15 +65,21 @@ const Related = (props: proptypes) => {
       <div className="overflow-hidden w-full">
         <div
           className="flex w-full gap-2 transition-all"
-          style={{ transform: `translateX(${currentPosition * 215}px)` }}
+          style={{
+            transform: `translateX(${currentPosition * (widthCard + 7.3)}px)`,
+          }}
         >
           {products &&
             products.map((product: Product) => (
-              <CardProduct
-                product={product}
-                key={product.id}
-                className="min-w-[213.2px] w-1/5"
-              />
+              <div
+                className="min-h-full"
+                style={{ minWidth: `${widthCard}px` }}
+              >
+                <CardProduct
+                  product={product}
+                  key={product.id}
+                />
+              </div>
             ))}
         </div>
       </div>
@@ -66,7 +87,7 @@ const Related = (props: proptypes) => {
         <i
           className={`${
             onHoverNext ? "opacity-100 scale-125" : "opacity-70"
-          } bg-white bx bx-chevron-right absolute -right-5 shadow-md -translate-y-1/2 text-2xl top-1/2 py-[1px] px-1 transition-all rounded-full z-20 cursor-pointer`}
+          } bg-white bx bx-chevron-right absolute right-0 shadow-md -translate-y-1/2 text-2xl top-1/2 py-[1px] px-1 transition-all rounded-full z-20 cursor-pointer`}
           onClick={handleNextCurrentPosition}
           onMouseEnter={() => setOnHoverNext(true)}
           onMouseLeave={() => setOnHoverNext(false)}

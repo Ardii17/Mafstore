@@ -67,16 +67,23 @@ const Navbar = () => {
           <div
             className={`${
               onSearch ? "fixed top-0 left-0 right-0" : ""
-            } flex px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-50`}
+            } flex max-sm:px-2 px-4 lg:px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-50`}
           >
-            <p
-              className="text-3xl font-bold font-mono pe-28 cursor-default"
-              onClick={() => router.push("/")}
+            <div
+              className={`${onSearch ? "hidden" : ""} flex gap-4 items-center`}
             >
-              Mafstore
-            </p>
+              <i className="bx bx-menu max-md:block lg:hidden text-2xl" />
+              <p
+                className="lg:text-3xl sm:text-xl max-md:text-2xl max-md:font-semibold lg:font-bold font-mono md:pe-4 lg:pe-28 cursor-default"
+                onClick={() => router.push("/")}
+              >
+                Mafstore
+              </p>
+            </div>
             <ul
-              className={`${onSearch ? "hidden" : ""} gap-4 items-center flex`}
+              className={`${
+                onSearch ? "hidden" : ""
+              } gap-4 items-center flex max-sm:hidden`}
             >
               <li className="cursor-pointer">New Featured</li>
               <li className="cursor-pointer">Men</li>
@@ -88,26 +95,40 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <div
                   className={`${
-                    onSearch ? "-left-52" : "left-0"
-                  } relative transition-all`}
+                    onSearch
+                      ? "max-sm:left-0 md:-left-32 lg:-left-52"
+                      : "left-0"
+                  } relative transition-all gap-2 max-sm:justify-center flex items-center`}
                 >
-                  <form className="flex gap-4" onSubmit={handleSearch}>
+                  {onSearch && (
+                    <i className="bx bx-left-arrow-alt text-2xl p-1" />
+                  )}
+                  <form
+                    className="flex max-sm:gap-2 md:gap-4"
+                    onSubmit={handleSearch}
+                  >
                     <div>
-                      <i className="bx bx-search absolute left-4  top-1/2 -translate-y-1/2 text-xl text-black" />
+                      <i
+                        className={`${
+                          onSearch ? "block" : "max-md:hidden sm:hidden"
+                        } bx bx-search absolute max-sm:left-12 max-md:left-4 lg:block top-1/2 -translate-y-1/2 text-xl text-black`}
+                      />
                       <input
                         type="text"
                         name="search"
                         onFocus={() => setOnSearch(true)}
                         placeholder="Search products"
                         autoComplete="off"
-                        className={`bg-gray-200 transition-all rounded-full w-60 focus:w-96 py-2 ps-12 pe-4 text-black`}
+                        className={`${
+                          onSearch ? "block" : "max-md:hidden sm:hidden"
+                        } bg-gray-200 transition-all lg:block rounded-full w-56 lg:focus:w-96 py-2 ps-12 pe-4 text-black`}
                       />
                     </div>
                     <Button
                       type="submit"
                       className={`${
                         onSearch ? "block" : "hidden"
-                      } px-4 border-2 border-blue-900 bg-blue-900 rounded-full py-2`}
+                      } px-4 border-2 text-sm border-blue-900 bg-blue-900 rounded-full py-2`}
                     >
                       Cari
                     </Button>
@@ -116,16 +137,24 @@ const Navbar = () => {
                 <i
                   className={`${
                     onSearch ? "" : "hidden"
-                  } bx bx-x py-2 px-3 text-xl bg-blue-900 text-white rounded-full cursor-pointer`}
+                  } bx bx-x max-sm:hidden py-2 px-3 text-xl bg-blue-900 text-white rounded-full cursor-pointer`}
                   onClick={() => setOnSearch(false)}
                 />
-                <div className={`${onSearch ? "hidden" : ""} flex gap-4`}>
+                <div
+                  className={`${
+                    onSearch ? "hidden" : ""
+                  } flex gap-4 items-center`}
+                >
                   <i
-                    className="bx bx-bell text-2xl cursor-pointer"
+                    className="bx bx-search max-sm:text-xl text-2xl md:block"
+                    onClick={() => setOnSearch(true)}
+                  />
+                  <i
+                    className="bx bx-bell max-sm:text-xl text-2xl cursor-pointer"
                     onClick={() => theme?.handleNotification(true)}
                   />
                   <Link href={"/cart"}>
-                    <i className="bx bx-cart-alt text-2xl cursor-pointer" />
+                    <i className="bx bx-cart-alt max-sm:text-xl text-2xl cursor-pointer" />
                   </Link>
                   <Image
                     src={profile.image}

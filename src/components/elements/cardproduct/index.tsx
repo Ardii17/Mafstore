@@ -6,7 +6,7 @@ import Link from "next/link";
 type proptypes = {
   product: Product;
   className?: string;
-  key: string
+  key: string;
 };
 
 const CardProduct = (props: proptypes) => {
@@ -14,8 +14,8 @@ const CardProduct = (props: proptypes) => {
   return (
     <Link
       href={`/products/${product.id}`}
-      className={`py-1 flex gap-4 max-w-[250px] ${className}`}
-      key={product.id}
+      className={`py-1 flex md:gap-2 lg:gap-4 h-full w-full ${className}`}
+      key={key}
     >
       <div className="shadow relative flex flex-col rounded">
         <Image
@@ -23,7 +23,14 @@ const CardProduct = (props: proptypes) => {
           alt="Coba Gambar"
           width={250}
           height={100}
-          className="object-cover rounded aspect-square"
+          className="object-cover rounded aspect-square md:hidden lg:block min-w-[250] h-full"
+        />
+        <Image
+          src={product.image}
+          alt="Coba Gambar"
+          width={215}
+          height={100}
+          className="object-cover rounded aspect-square md:block lg:hidden min-w-[215] h-full"
         />
         <div className="flex flex-col gap-2 p-2 justify-between h-full">
           <div>

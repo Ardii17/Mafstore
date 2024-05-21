@@ -10,6 +10,7 @@ type proptypes = {
 
 export default function CarouselPage(props: proptypes) {
   const { carousel } = props;
+  const [device, setDevice] = useState(0);
   const [onHoverPrevButton, setOnHoverPrevButton] = useState(false);
   const [onHoverNextButton, setOnHoverNextButton] = useState(false);
 
@@ -26,10 +27,9 @@ export default function CarouselPage(props: proptypes) {
   };
 
   return (
-    <>
+    <div className="lg:max-h-[400px] md:max-h-[300px]">
       <Carousel
         withIndicators
-        height={400}
         previousControlProps={{
           style: onHoverPrevButton
             ? controlHover
@@ -44,6 +44,7 @@ export default function CarouselPage(props: proptypes) {
           onMouseEnter: () => setOnHoverNextButton(true),
           onMouseLeave: () => setOnHoverNextButton(false),
         }}
+        className={``}
       >
         {carousel.map((item: any) => (
           <Carousel.Slide>
@@ -57,6 +58,6 @@ export default function CarouselPage(props: proptypes) {
           </Carousel.Slide>
         ))}
       </Carousel>
-    </>
+    </div>
   );
 }
