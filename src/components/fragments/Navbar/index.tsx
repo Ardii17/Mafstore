@@ -96,7 +96,7 @@ const Navbar = () => {
                 <div
                   className={`${
                     onSearch
-                      ? "max-sm:left-0 md:-left-32 lg:-left-52"
+                      ? "max-sm:left-0 max-md:-left-32 -left-52"
                       : "left-0"
                   } relative transition-all gap-2 max-sm:justify-center flex items-center`}
                 >
@@ -110,8 +110,8 @@ const Navbar = () => {
                     <div>
                       <i
                         className={`${
-                          onSearch ? "block" : "max-md:hidden sm:hidden"
-                        } bx bx-search absolute max-sm:left-12 max-md:left-4 lg:block top-1/2 -translate-y-1/2 text-xl text-black`}
+                          onSearch ? "block" : "max-md:hidden max-sm:hidden"
+                        } bx bx-search absolute left-4 lg:block top-1/2 -translate-y-1/2 text-xl text-black`}
                       />
                       <input
                         type="text"
