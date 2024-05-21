@@ -66,7 +66,7 @@ const Related = (props: proptypes) => {
       </p>
       <div className="overflow-hidden w-full">
         <div
-          className="flex w-full gap-2 transition-all h-full"
+          className="min-w-full flex gap-2 py-1 transition-all z-10"
           style={{
             transform: `translateX(${
               currentPosition * widthCard - currentPosition * -9
