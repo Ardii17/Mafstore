@@ -21,7 +21,7 @@ const Menus = (props: proptypes) => {
   return (
     <div className="rounded bg-white max-sm:p-2 md:p-4 flex md:gap-4 lg:gap-4 lg:flex-row shadow max-md:flex-col sm:flex-col">
       <div className="lg:w-1/3 md:w-full p-2 sm:w-full">
-        <p className="mb-4 text-lg font-bold text-blue-700">MENU</p>
+        <p className="mb-4 text-lg font-semibold text-blue-700">MENU</p>
         <div className="grid lg:grid-cols-3 md:grid-cols-7 gap-2 place-content-start max-sm:grid-cols-3">
           {menus &&
             menus.map((menu: any, index: number) => (
@@ -40,8 +40,8 @@ const Menus = (props: proptypes) => {
         </div>
       </div>
       <span className="lg:w-[2px] lg:block bg-gray-100 max-md:hidden" />
-      <div className="md:w-full lg:w-2/3 min-h-full flex flex-col gap-4 sm:w-full">
-        <p className="text-lg text-blue-700 font-bold">KATEGORI PILIHAN</p>
+      <div className="md:w-full lg:w-2/3 min-h-full flex flex-col gap-4 sm:w-full max-sm:mt-4">
+        <p className="text-lg text-blue-700 font-semibold">KATEGORI PILIHAN</p>
         <div className="grid gap-4 grid-cols-5 w-full grid-rows-2 h-full max-sm:grid-cols-3">
           {category.map(
             (item: { link: string; name: string }, index: number) => (
