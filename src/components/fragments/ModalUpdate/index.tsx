@@ -23,6 +23,7 @@ const ModalUpdate = (props: propTypes) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose]);
+  
   return (
     <div
       className="flex w-screen h-screen z-50 fixed items-center justify-center top-0"

@@ -55,7 +55,7 @@ const Navbar = () => {
 
   return (
     <>
-      {onSearch && <div style={{ height: "72px" }}></div>}
+      {onSearch && <div className="" style={{ height: "72px" }}></div>}
       <div
         className={`${
           onSearch ? "absolute top-0 left-0 bottom-0 right-0 h-screen z-50" : ""
@@ -65,7 +65,7 @@ const Navbar = () => {
         <div
           className={
             onSearch
-              ? "fixed top-0 left-0 right-0 h-96 z-40 bg-white shadow"
+              ? "fixed top-0 left-0 right-0 md:h-96 sm:h-screen max-sm:h-screen z-40 bg-white shadow"
               : ""
           }
           ref={refSearch}
@@ -75,15 +75,12 @@ const Navbar = () => {
               onSearch ? "fixed top-0 left-0 right-0" : ""
             } flex max-sm:px-2 px-4 lg:px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-50`}
           >
-            <div className={`flex gap-4 items-center`}>
-              <i className="bx bx-menu max-md:block lg:hidden text-2xl md:hidden" />
               <p
-                className="lg:text-3xl max-sm:text-lg max-md:text-2xl max-md:font-semibold lg:font-bold font-mono md:pe-4 lg:pe-28 cursor-default"
+                className={`${onSearch ? "hidden" : ""} lg:text-3xl max-sm:text-2lg max-md:text-2xl font-semibold lg:font-bold font-mono md:pe-4 lg:pe-28 cursor-default`}
                 onClick={() => router.push("/")}
               >
                 Mafstore
               </p>
-            </div>
             <ul
               className={`${
                 onSearch ? "hidden" : ""
@@ -126,7 +123,9 @@ const Navbar = () => {
                         autoComplete="off"
                         ref={inputSearch}
                         className={`${
-                          onSearch ? "block" : "max-md:hidden sm:hidden"
+                          onSearch
+                            ? "block sm:w-56 max-sm:w-56"
+                            : "max-md:hidden sm:hidden"
                         } bg-gray-200 transition-all lg:block rounded-full w-56 focus:w-96 py-2 max-sm:ps-8 md:ps-12 pe-4 text-black`}
                       />
                     </div>

@@ -7,8 +7,8 @@ const Notification = () => {
   return (
     <div
       className={`${
-        theme?.notification ? "right-0" : "-right-96"
-      } fixed transition-all w-[22rem] h-screen bg-blue-800 z-40 px-4 py-2`}
+        theme?.notification ? "right-0" : "-right-[26rem]"
+      } fixed transition-all max-sm:w-full sm:w-full md:w-[22rem] h-screen bg-blue-800 z-40 px-4 py-2`}
     >
       <div className="flex justify-between items-center mb-2">
         <p className="text-white text-lg font-semibold tracking-wider">

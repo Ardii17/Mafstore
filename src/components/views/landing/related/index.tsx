@@ -38,7 +38,7 @@ const Related = (props: proptypes) => {
 
   useEffect(() => {
     if (cardRef.current && theme?.deviceType === "tablet") {
-      setWidthCard((cardRef.current.offsetWidth - 10) / 3 - 3);
+      setWidthCard((cardRef.current.offsetWidth - 10) / 4 - 3);
     } else if (cardRef.current && theme?.deviceType === "desktop") {
       setWidthCard((cardRef.current.offsetWidth - 30) / 4);
     } else if (cardRef.current && theme?.deviceType === "mobile") {
