@@ -182,7 +182,7 @@ const DetailProduct = (props: propTypes) => {
       </div>
       <div className="flex sm:gap-2 md:gap-8 md:flex-row bg-white max-sm:flex-col sm:flex-col">
         <div className="md:min-w-[33.33%] lg:min-w-[50%] sm:w-full ">
-          <div className="md:mb-4 md:max-w-[450px] md:min-w-full max-md:min-w-full sm:min-w-full max-sm:min-w-full max-md:hidden md:hidden lg:block">
+          <div className="md:mb-4 md:max-w-[450px] md:min-w-full max-md:min-w-full sm:min-w-full max-sm:min-w-full max-md:hidden md:hidden max-sm:block sm:block lg:block">
             <Image
               src={product?.image}
               alt={product?.name}
@@ -334,7 +334,18 @@ const DetailProduct = (props: propTypes) => {
                   <i className="bx bx-chat text-2xl text-white" />
                 </button>
                 <hr className="w-[2px] h-12 bg-white" />
-                <button className="w-1/2">
+                <button
+                  className="w-1/2"
+                  onClick={() =>
+                    session.status === "authenticated"
+                      ? favorite?.find(
+                          (item: { id: string }) => item.id === productId
+                        )
+                        ? handleFavorite("delete")
+                        : handleFavorite("add")
+                      : router.push(`/auth/signin?callbackUrl=${router.asPath}`)
+                  }
+                >
                   <i className="bx bx-heart text-2xl text-white" />
                 </button>
               </div>
