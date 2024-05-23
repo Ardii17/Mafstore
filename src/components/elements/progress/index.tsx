@@ -1,11 +1,10 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { blue } from "@mui/material/colors";
 
-export default function Progress() {
+export default function Progress(props: { size: number }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-      <CircularProgress sx={{ color: "white",  }} size={30} />
+      <CircularProgress sx={{ color: "white" }} size={props.size} />
     </Box>
   );
 }

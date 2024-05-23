@@ -1,6 +1,7 @@
 import CardProduct from "@/components/elements/cardproduct";
 import { ThemeContext } from "@/components/elements/contextAPI";
 import { Product } from "@/types";
+import { Skeleton } from "@mantine/core";
 import { useContext, useEffect, useRef, useState } from "react";
 
 type proptypes = {
@@ -11,6 +12,7 @@ const Related = (props: proptypes) => {
   const { products } = props;
   const theme = useContext(ThemeContext);
   const cardRef: any = useRef(null);
+  const [isReadyComponent, setIsReadyComponent] = useState(false);
   const [widthCard, setWidthCard] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [onHoverPrev, setOnHoverPrev] = useState(false);
@@ -40,11 +42,17 @@ const Related = (props: proptypes) => {
     if (cardRef.current && theme?.deviceType === "tablet") {
       setWidthCard((cardRef.current.offsetWidth - 10) / 4 - 3);
     } else if (cardRef.current && theme?.deviceType === "desktop") {
-      setWidthCard((cardRef.current.offsetWidth - 30) / 4);
+      setWidthCard((cardRef.current.offsetWidth - 30) / 5 - 4);
     } else if (cardRef.current && theme?.deviceType === "mobile") {
       setWidthCard((cardRef.current.offsetWidth - 8) / 2 - 3);
     }
   }, [cardRef.current]);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setIsReadyComponent(true);
+    }
+  }, [products]);
 
   return (
     <div
@@ -61,29 +69,60 @@ const Related = (props: proptypes) => {
           onMouseLeave={() => setOnHoverPrev(false)}
         />
       )}
-      <p className="text-lg text-blue-800 font-semibold tracking-wider">
-        KESUKAANMU
-      </p>
-      <div className="overflow-hidden w-full">
-        <div
-          className="min-w-full flex gap-2 py-1 transition-all z-10"
-          style={{
-            transform: `translateX(${
-              currentPosition * widthCard - currentPosition * -9
-            }px)`,
-          }}
-        >
-          {products &&
-            products.map((product: Product) => (
-              <div
-                className="min-h-full"
-                style={{ minWidth: `${widthCard}px`, width: `${widthCard}px` }}
-              >
-                <CardProduct product={product} key={product.id} />
-              </div>
-            ))}
-        </div>
-      </div>
+      {isReadyComponent ? (
+        <>
+          <p className="text-lg text-blue-800 font-semibold tracking-wider">
+            KESUKAANMU
+          </p>
+          <div className="overflow-hidden w-full">
+            <div
+              className="min-w-full flex gap-2 py-1 transition-all z-10"
+              style={{
+                transform: `translateX(${
+                  currentPosition * widthCard - currentPosition * -9
+                }px)`,
+              }}
+            >
+              {products &&
+                products.map((product: Product) => (
+                  <div
+                    className="min-h-full"
+                    style={{
+                      minWidth: `${widthCard}px`,
+                      width: `${widthCard}px`,
+                    }}
+                  >
+                    <CardProduct product={product} key={product.id} />
+                  </div>
+                ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <Skeleton height={15} radius="xl" width="15%" />
+          <div className="overflow-hidden w-full">
+            <div className="min-w-full flex gap-2 py-1 transition-all z-10">
+              {Array(5)
+                .fill(false)
+                .map((product: Product) => (
+                  <Skeleton>
+                    <div
+                      className="min-h-full"
+                      style={{
+                        minWidth: `${widthCard}px`,
+                        width: `${widthCard}px`,
+                      }}
+                    >
+                      <CardProduct product={product} key={product.id} />
+                    </div>
+                  </Skeleton>
+                ))}
+            </div>
+          </div>
+        </>
+      )}
+
       {currentPosition !== -3 && (
         <i
           className={`${

@@ -58,7 +58,7 @@ export default function Home() {
         <Button type="submit">
           {loading ? (
             <div className="w-full justify-center items-center">
-              <Progress />
+              <Progress size={30} />
             </div>
           ) : (
             "Masuk"
