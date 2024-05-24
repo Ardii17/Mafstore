@@ -12,6 +12,7 @@ const Related = (props: proptypes) => {
   const { products } = props;
   const theme = useContext(ThemeContext);
   const cardRef: any = useRef(null);
+  const [devideMode, setDeviceMode] = useState(0);
   const [isReadyComponent, setIsReadyComponent] = useState(false);
   const [widthCard, setWidthCard] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
@@ -54,6 +55,16 @@ const Related = (props: proptypes) => {
     }
   }, [products]);
 
+  useEffect(() => {
+    if (theme?.deviceType === "desktop") {
+      setDeviceMode(5);
+    } else if (theme?.deviceType === "tablet") {
+      setDeviceMode(4);
+    } else {
+      setDeviceMode(2);
+    }
+  }, [theme?.deviceType]);
+
   return (
     <div
       className="w-full p-2 bg-white rounded flex flex-col gap-2 relative shadow h-auto"
@@ -92,6 +103,7 @@ const Related = (props: proptypes) => {
                       width: `${widthCard}px`,
                     }}
                   >
+                    <div></div>
                     <CardProduct product={product} key={product.id} />
                   </div>
                 ))}
@@ -103,18 +115,18 @@ const Related = (props: proptypes) => {
           <Skeleton height={15} radius="xl" width="15%" />
           <div className="overflow-hidden w-full">
             <div className="min-w-full flex gap-2 py-1 transition-all z-10">
-              {Array(5)
+              {Array(devideMode)
                 .fill(false)
-                .map((product: Product) => (
+                .map(() => (
                   <Skeleton>
                     <div
-                      className="min-h-full"
+                      className="min-h-full min-w-full"
                       style={{
                         minWidth: `${widthCard}px`,
                         width: `${widthCard}px`,
                       }}
                     >
-                      <CardProduct product={product} key={product.id} />
+                      <div className="h-56"></div>
                     </div>
                   </Skeleton>
                 ))}

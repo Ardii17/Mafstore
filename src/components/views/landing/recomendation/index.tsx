@@ -10,6 +10,7 @@ type proptypes = {
 
 const Recomendation = (props: proptypes) => {
   const { products } = props;
+  const [deviceMode, setDeviceMode] = useState(0);
   const theme = useContext(ThemeContext);
   const cardRef: any = useRef(null);
   const [isReadyComponent, setIsReadyComponent] = useState(false);
@@ -30,6 +31,16 @@ const Recomendation = (props: proptypes) => {
       setIsReadyComponent(true);
     }
   }, [products]);
+
+  useEffect(() => {
+    if (theme?.deviceType === "desktop") {
+      setDeviceMode(5);
+    } else if (theme?.deviceType === "tablet") {
+      setDeviceMode(4);
+    } else {
+      setDeviceMode(2);
+    }
+  }, [theme?.deviceType]);
 
   return (
     <div className="w-full p-2 bg-white rounded flex flex-col gap-2 shadow">
@@ -63,12 +74,18 @@ const Recomendation = (props: proptypes) => {
             className="overflow-hidden w-full grid md:grid-cols-4 lg:grid-cols-5 gap-2 max-sm:grid-cols-2"
             ref={cardRef}
           >
-            {Array(15)
+            {Array(deviceMode)
               .fill(false)
-              .map((product: Product) => (
+              .map(() => (
                 <Skeleton>
-                  <div style={{ minWidth: `${cardWidth}px` }}>
-                    <CardProduct product={product} key={product.id} />
+                  <div
+                    className="min-h-full min-w-full"
+                    style={{
+                      minWidth: `${cardWidth}px`,
+                      width: `${cardWidth}px`,
+                    }}
+                  >
+                    <div className="h-56"></div>
                   </div>
                 </Skeleton>
               ))}

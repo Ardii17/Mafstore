@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../contextAPI";
 
 type proptypes = {
-  product: Product;
+  product: Product | any;
   className?: string;
   key: string;
 };
@@ -14,6 +14,7 @@ type proptypes = {
 const CardProduct = (props: proptypes) => {
   const theme = useContext(ThemeContext);
   const { product, className, key } = props;
+  
   return (
     <Link
       href={`/products/${product.id}`}
