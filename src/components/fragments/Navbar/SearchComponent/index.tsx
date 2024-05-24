@@ -38,9 +38,9 @@ export default function SearchComponent(props: {
             ref={props.inputSearch}
             className={`${
               props.onSearch
-                ? "block sm:w-56 max-sm:w-56"
+                ? "block sm:w-64 max-sm:w-64"
                 : "max-md:hidden sm:hidden"
-            } bg-gray-200 transition-all lg:block rounded-full w-56 focus:w-96 py-2 max-sm:ps-8 md:ps-12 pe-4 text-black`}
+            } bg-gray-200 transition-all lg:block rounded-full w-56 md:focus:w-96 py-2 max-sm:ps-8 md:ps-12 pe-4 text-black`}
           />
         </div>
         <Button
