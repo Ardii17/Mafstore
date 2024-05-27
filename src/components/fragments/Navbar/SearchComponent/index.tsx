@@ -11,7 +11,7 @@ export default function SearchComponent(props: {
     <div
       className={`${
         props.onSearch ? "lg:-left-52 md:-left-16" : "left-0"
-      } relative transition-all gap-2 max-sm:justify-center flex items-center`}
+      } relative transition-all gap-2 max-sm:justify-center flex items-center z-20`}
     >
       {props.onSearch && (
         <i

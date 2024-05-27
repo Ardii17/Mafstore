@@ -16,12 +16,11 @@ const CartPage = (props: proptypes) => {
     const { data } = await userServices.getCarts(session.data?.accessToken);
     setCarts(data.data);
   };
-    const getFavorite = async () => {
-      const { data } = await userServices.getFavorite(
-        session.data?.accessToken
-      );
-      setFavorite(data.data);
-    };
+  
+  const getFavorite = async () => {
+    const { data } = await userServices.getFavorite(session.data?.accessToken);
+    setFavorite(data.data);
+  };
 
   useEffect(() => {
     if (session.data?.accessToken) {
@@ -29,11 +28,11 @@ const CartPage = (props: proptypes) => {
     }
   }, [session]);
 
-    useEffect(() => {
-      if (session.data?.accessToken) {
-        getFavorite();
-      }
-    }, [session]);
+  useEffect(() => {
+    if (session.data?.accessToken) {
+      getFavorite();
+    }
+  }, [session]);
 
   return (
     <div>

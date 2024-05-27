@@ -97,11 +97,11 @@ const Navbar = () => {
           <div
             className={`${
               onSearch ? "fixed top-0 left-0 right-0" : ""
-            } flex max-sm:px-2 px-4 lg:px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-50`}
+            } flex max-sm:px-2 px-4 lg:px-16 justify-between items-center py-4 shadow bg-blue-800 text-white z-10`}
           >
-            <div className={`${onSearch ? "hidden" : ""}  flex items-center`}>
+            <div className={`flex items-center`}>
               <img
-                className={`md:hidden lg:hidden max-w-[50px] max-h-[50px]`}
+                className={`max-sm:block max-w-[50px] max-h-[50px]`}
                 src="/./../Icons/icon-web.png"
                 alt="Web Icon"
               />

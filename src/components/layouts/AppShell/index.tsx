@@ -8,7 +8,8 @@ import { useContext } from "react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const theme = useContext(ThemeContext);
-  const disableNavbar = ["auth", "admin", "member"];
+  const disableNavbar = ["auth", "admin", "member", "checkout"];
+  const disableFooter = ["auth", "admin", "member"];
   const { pathname }: any = useRouter();
 
   return (
@@ -18,8 +19,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <Notification />
       </div>
       <div>{children}</div>
-      {!disableNavbar.includes(pathname.split("/")[1]) && <Footer />}
-      {theme?.deviceType === "desktop" && theme?.toaster && Object.keys(theme?.toaster).length > 0 && <Toaster />}
+      {!disableFooter.includes(pathname.split("/")[1]) && <Footer />}
+      {theme?.deviceType === "desktop" &&
+        theme?.toaster &&
+        Object.keys(theme?.toaster).length > 0 && <Toaster />}
     </div>
   );
 }

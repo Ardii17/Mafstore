@@ -21,20 +21,20 @@ const CardProduct = (props: proptypes) => {
       className={`py-1 flex md:gap-2 lg:gap-4 h-full w-full ${className}`}
       key={key}
     >
-      <div className="shadow relative flex flex-col rounded">
+      <div className="shadow relative flex flex-col rounded max-h-[23rem]">
         <Image
           src={product.image}
           alt="Coba Gambar"
           width={250}
           height={100}
-          className="object-cover rounded aspect-square md:hidden lg:block min-w-[250] h-full max-sm:hidden"
+          className="object-cover rounded aspect-square md:hidden lg:block max-sm:hidden"
         />
         <Image
           src={product.image}
           alt="Coba Gambar"
           width={215}
           height={100}
-          className="object-cover rounded aspect-square md:block lg:hidden min-w-[215] h-full"
+          className="object-cover rounded aspect-square md:block max-md:block lg:hidden min-w-[215] h-full"
         />
         <div className="flex flex-col gap-2 p-2 justify-between h-full">
           <div>

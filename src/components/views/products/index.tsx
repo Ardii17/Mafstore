@@ -38,8 +38,14 @@ const ProductsViews = (props: propTypes) => {
     }
   }, [theme?.deviceType]);
 
+  useEffect(() => {
+    if (products.length > 0) {
+      setIsReadyComponent(true);
+    }
+  }, [products]);
+
   return (
-    <div className="py-4 sm:px-2 max-sm:px-2 md:px-4 max-md:px-4 lg:px-12 flex lg:flex-row lg:gap-8 max-md:flex-col max-md:gap-2 md:flex-col min-h-screen">
+    <div className="py-4 sm:px-2 max-sm:px-2 md:px-4 max-md:px-4 lg:px-12 flex lg:flex-row lg:gap-8 max-md:flex-col max-md:gap-2 md:flex-col">
       {isReadyComponent ? (
         <>
           <FilteredProduct length={products.length} query={query} />
@@ -61,16 +67,14 @@ const ProductsViews = (props: propTypes) => {
             {Array(deviceMode)
               .fill(false)
               .map(() => (
-                <Skeleton>
+                <Skeleton visible={!isReadyComponent}>
                   <div
                     className="min-h-full min-w-full"
                     style={{
-                      minWidth: `${cardWidth}px`,
-                      width: `${cardWidth}px`,
+                      minWidth: `${100}px`,
+                      width: `${300}px`,
                     }}
-                  >
-                    <div className="h-56"></div>
-                  </div>
+                  ></div>
                 </Skeleton>
               ))}
           </div>
