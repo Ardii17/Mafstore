@@ -143,7 +143,7 @@ const Navbar = () => {
                   } flex gap-4 items-center`}
                 >
                   <i
-                    className="bx bx-search max-sm:text-xl text-2xl md:block"
+                    className="bx bx-search max-sm:text-xl text-2xl md:block lg:hidden"
                     onClick={() => {
                       setOnSearch(true), inputSearch.current.focus();
                     }}

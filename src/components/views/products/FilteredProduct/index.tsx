@@ -6,7 +6,6 @@ export default function FilteredProduct(props: {
 }) {
   return (
     <div className="w-1/5 lg:h-screen">
-      <Skeleton height={15} width="15%" />
       <p className="text-xl mb-2 max-sm:w-full max-sm:whitespace-nowrap sm:whitespace-nowrap">
         {props.query
           ? props.query.charAt(0).toUpperCase() + props.query.slice(1)

@@ -30,9 +30,7 @@ const CartViews = (props: proptypes) => {
   const session: any = useSession();
   const startRef: any = useRef(null);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [isFixedTop, setIsFixedTop] = useState(true);
   const [cartsData, setCartsData] = useState<any>([]);
-  const [isFixedBottom, setIsFixedBottom] = useState(false);
   const handleUpdateProduct = async (
     type: string,
     i: number,
@@ -189,22 +187,21 @@ const CartViews = (props: proptypes) => {
   }, [cartsData]);
 
   return (
-    <div className="px-16 flex w-full h-full py-2 box-border mb-4">
-      <div className="w-2/3 box-border">
+    <div className="lg:px-16 max-sm:px-2 flex w-full h-full py-2 box-border mb-4 md:flex-col lg:flex-row max-md:flex-col max-md:px-4 md:px-4">
+      <div className="lg:w-2/3 sm:w-full max-md:w-full box-border">
         <p className="text-xl pb-4">Cart</p>
         <ProductsSection
           favorite={favorite}
           cartsData={cartsData}
           handleUpdateProduct={handleUpdateProduct}
           handleFavorite={handleFavorite}
-        ></ProductsSection>
+        />
       </div>
-      <div className={`w-1/3 relative`} ref={startRef}>
-        <PaySection
-          totalPrice={totalPrice}
-          isFixedTop={isFixedTop}
-          isFixedBottom={isFixedBottom}
-        ></PaySection>
+      <div
+        className={`lg:w-1/3 sm:w-full max-md:w-full relative`}
+        ref={startRef}
+      >
+        <PaySection totalPrice={totalPrice} />
       </div>
     </div>
   );
