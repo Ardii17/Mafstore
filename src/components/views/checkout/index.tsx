@@ -21,11 +21,11 @@ function AddressSection() {
       <hr className="my-4 sm:hidden md:block" />
       <div className="flex md:flex-row sm:flex-col max-sm:flex-col max-sm:gap-1">
         <div className="w-1/6 max-sm:min-w-full">
-          <p className="text-lg">Ardiansyah</p>
-          <p>08123456789</p>
+          <p className="text-lg sm:text-sm">Ardiansyah</p>
+          <p className="sm:text-sm">08123456789</p>
         </div>
         <hr className="w-[3px] h-[100%] bg-gray-200 rounded-full sm:hidden md:block" />
-        <div className="w-4/6 sm:px-2 md:px-4 max-sm:min-w-full">
+        <div className="w-4/6 sm:px-2 md:px-4 max-sm:min-w-full max-sm:text-sm">
           <p>
             Dusun Sindangkasih, Desa Sindangpakuon RT 001 RW 008 Kecamatan
             Cimanggung Kabupaten Sumedang Jawa Barat, Indonesia
@@ -82,7 +82,7 @@ function ProductsSection(props: {
             </>
           ))}
           <div className="flex gap-4 w-full items-center">
-            <p className="w-1/4">Message : </p>
+            <p className="w-1/4 max-sm:text-sm">Message : </p>
             <input
               type="text"
               className="py-2 px-2 w-3/4 rounded border border-gray-300"
@@ -90,7 +90,7 @@ function ProductsSection(props: {
             />
           </div>
           <hr className="w-full h-[1px] bg-gray-100" />
-          <p className="text-lg">
+          <p className="text-lg sm:text-sm">
             Total Price : {convertIDR(props.totalPrice)}
           </p>
         </div>
@@ -204,19 +204,21 @@ function DeliveryPayingSection(props: {
         <table>
           <tbody>
             <tr>
-              <td className="py-2">Total Barang</td>
+              <td className="py-2 max-sm:text-sm">Total Barang</td>
               <td>{convertIDR(props.totalPrice)}</td>
             </tr>
             <tr>
-              <td className="py-2">Estimasi Pengiriman</td>
+              <td className="py-2 max-sm:text-sm">Estimasi Pengiriman</td>
               <td>{convertIDR(props.deliveryCost)}</td>
             </tr>
             <tr>
-              <td className="py-2">Biaya Penanganan</td>
+              <td className="py-2 max-sm:text-sm">Biaya Penanganan</td>
               <td>{convertIDR(5000)}</td>
             </tr>
             <tr>
-              <td className="py-2">Total Pemesanan Yang Dibayar</td>
+              <td className="py-2 max-sm:text-sm">
+                Total Pemesanan Yang Dibayar
+              </td>
               <td>
                 {convertIDR(props.totalPrice + props.deliveryCost + 5000)}
               </td>
