@@ -37,31 +37,43 @@ export default function ProductsSection(props: proptypes) {
                   <p className="opacity-70 max-sm:hidden">
                     {item.product.category}
                   </p>
-                  <div className="flex gap-4 py-2 items-center">
-                    <p>Size</p>
-                    <select
-                      name="size"
-                      id="size"
-                      defaultValue={item.size}
-                      className="px-4 bg-gray-100 py-1"
-                      onChange={(e: any) =>
-                        props.handleUpdateProduct("size", index, e.target.value)
+                  <div className="flex py-2 items-center justify-between">
+                    <div className="flex gap-2 items-center">
+                      <p>Size</p>
+                      <select
+                        name="size"
+                        id="size"
+                        defaultValue={item.size}
+                        className="px-4 bg-gray-100 py-1"
+                        onChange={(e: any) =>
+                          props.handleUpdateProduct(
+                            "size",
+                            index,
+                            e.target.value
+                          )
+                        }
+                      >
+                        {item.product.stock.map(
+                          (
+                            stock: {
+                              size: string;
+                              qty: string;
+                            },
+                            index: number
+                          ) => (
+                            <option key={index} value={stock.size}>
+                              {stock.size}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                    <i
+                      className="bx bx-trash text-2xl cursor-pointer sm:block md:hidden"
+                      onClick={() =>
+                        props.handleUpdateProduct("delete", item.product.id)
                       }
-                    >
-                      {item.product.stock.map(
-                        (
-                          stock: {
-                            size: string;
-                            qty: string;
-                          },
-                          index: number
-                        ) => (
-                          <option key={index} value={stock.size}>
-                            {stock.size}
-                          </option>
-                        )
-                      )}
-                    </select>
+                    />
                   </div>
                   <div className="flex gap-4 items-center max-sm:hidden">
                     <p>Quantity</p>
@@ -114,7 +126,7 @@ export default function ProductsSection(props: proptypes) {
                       </button>
                       <input
                         type="number"
-                        className="w-12 text-center border-2 border-gray-200 ps-4"
+                        className="md:w-12 max-sm:w-8 text-center border-2 border-gray-200 lg:ps-4"
                         value={item.qty}
                         disabled
                       />
