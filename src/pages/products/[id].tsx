@@ -38,11 +38,6 @@ const DetailProductPage = () => {
   useEffect(() => {
     if (session.data?.accessToken) {
       getCarts();
-    }
-  }, [session]);
-
-  useEffect(() => {
-    if (session.data?.accessToken) {
       getFavorite();
     }
   }, [session]);

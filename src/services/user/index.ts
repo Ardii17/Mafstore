@@ -1,4 +1,5 @@
 import instance from "@/lib/axios/instance";
+import { AddressTypes } from "@/types";
 
 const userServices = {
   getAllUsers: () => instance.get("/api/user"),
@@ -66,6 +67,18 @@ const userServices = {
           Authorization: `Bearer ${token}`,
         },
       }
+    ),
+  getAddress: (token: string) =>
+    instance.get("/api/users/address", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  updateAddress: (token: string, data: any) =>
+    instance.put(
+      "/api/users/address",
+      { data },
+      { headers: { Authorization: `Bearer ${token}` } }
     ),
 };
 

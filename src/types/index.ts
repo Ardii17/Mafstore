@@ -32,3 +32,22 @@ export type ToasterTypes = {
   };
   setToaster: Dispatch<SetStateAction<{}>>;
 };
+
+export type AddressTypes = {
+  addressLine: string;
+  phone: string;
+  receipment: string;
+  note: string;
+  isMain: boolean;
+};
+
+export type ProvinsiTypes = {
+  id: number;
+  nama: string;
+};
+
+export type KotaTypes = {
+  id: number;
+  id_kota: string;
+  nama: string;
+};

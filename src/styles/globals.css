@@ -34,3 +34,18 @@ body {
 
 @layer components {
 }
+
+select {
+      appearance: none;       /* For most modern browsers */
+      -webkit-appearance: none; /* For WebKit-based browsers (Safari, Chrome) */
+      -moz-appearance: none;    /* For Firefox */
+      background: transparent; /* Transparan untuk menghapus background default */
+      border: 1px solid #ccc;   /* Tambahkan border untuk styling */
+      padding: 8px;            /* Padding untuk memberi ruang teks */
+      font-size: 16px;         /* Ukuran font */
+    }
+
+    /* Menghilangkan ikon bawaan di Internet Explorer */
+    select::-ms-expand {
+      display: none;
+    }
