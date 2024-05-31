@@ -7,7 +7,7 @@ const MemberDashboardView = () => {
   return (
     <>
       <MemberLayout>
-        <div className="flex gap-2 mb-2 items-center">
+        <div className="flex gap-2 mb-2 items-center md:hidden lg:flex">
           <button onClick={() => push("/")}>
             <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
           </button>

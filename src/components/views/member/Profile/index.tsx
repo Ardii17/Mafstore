@@ -29,7 +29,7 @@ const MemberProfileView = (props: propTypes) => {
   return (
     <>
       <MemberLayout>
-        <div className="flex gap-2 mb-2 items-center">
+        <div className="flex gap-2 mb-2 items-center md:hidden lg:flex">
           <button onClick={() => push("/")}>
             <i className="bx bx-left-arrow-alt py-1 px-2 rounded bg-blue-700 text-white text-2xl" />
           </button>
@@ -37,14 +37,14 @@ const MemberProfileView = (props: propTypes) => {
             Profile
           </p>
         </div>
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-4 mt-4 max-sm:flex-col max-sm:w-full mb-8">
           <AvatarProfile
             profile={profile}
             setProfile={setProfile}
             profileData={profileData}
             session={session}
           />
-          <div className="w-[75%] shadow rounded-md p-4">
+          <div className="w-[75%] max-sm:w-full shadow rounded-md p-4">
             <p className="place-self-start text-xl mb-2">Profile</p>
             <div className="flex flex-col gap-4">
               <Input

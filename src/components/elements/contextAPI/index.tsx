@@ -4,6 +4,7 @@ type Data = {
   deviceType: string | undefined;
   notification: boolean;
   toaster: {};
+  listItems: any[]
   setToaster: (value: {}) => void;
   handleNotification: (value: boolean) => void;
 };
@@ -14,6 +15,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [notification, setNotification] = useState(false);
   const [toaster, setToaster] = useState({});
   const [deviceType, setDeviceType] = useState("desktop");
+  const listItems = [
+    {
+      title: "Dashboard",
+      link: "/member",
+      icon: "bxs-dashboard",
+    },
+    {
+      title: "Order",
+      link: "/member/order",
+      icon: "bxs-cart",
+    },
+    {
+      title: "Profile",
+      link: "/member/profile",
+      icon: "bxs-user",
+    },
+  ];
 
   useEffect(() => {
     const checkDeviceType = () => {
@@ -57,6 +75,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     deviceType,
     notification,
     toaster,
+    listItems,
     setToaster,
     handleNotification: (value: boolean) => handleNotification(value),
   };

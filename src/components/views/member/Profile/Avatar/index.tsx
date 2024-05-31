@@ -66,7 +66,7 @@ const AvatarProfile = (props: propTypes) => {
   };
 
   return (
-    <div className="w-[25%] shadow h-auto rounded-md p-4 flex flex-col gap-4 items-center">
+    <div className="w-[25%] max-sm:w-full shadow h-auto rounded-md p-4 flex flex-col gap-4 items-center">
       <p className="place-self-start text-xl mb-2">Avatar</p>
       {profileData.image ? (
         <Image

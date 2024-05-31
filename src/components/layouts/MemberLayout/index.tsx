@@ -2,33 +2,15 @@ import SidebarLayout from "@/components/fragments/Sidebar";
 import React from "react";
 
 type propTypes = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
-
-const listItems = [
-  {
-    title: "Dashboard",
-    link: "/member",
-    icon: "bxs-dashboard",
-  },
-  {
-    title: "Order",
-    link: "/member/order",
-    icon: "bxs-cart",
-  },
-  {
-    title: "Profile",
-    link: "/member/profile",
-    icon: "bxs-user",
-  },
-];
 
 const MemberLayout = (props: propTypes) => {
   const { children } = props;
   return (
-    <div className="flex gap-4">
-      <SidebarLayout lists={listItems} titleSidebar="Settings" />
-      <div className="my-3 w-full me-4">{children}</div>
+    <div className="max-sm:block md:flex md:flex-col lg:flex-row gap-2">
+      <SidebarLayout titleSidebar="Settings" className="max-sm:hidden" />
+      <div className="my-3 w-full me-4 md:px-4 max-md:px-4 lg:ms-12">{children}</div>
     </div>
   );
 };
